@@ -1,6 +1,0 @@
-# pack-refs with: peeled fully-peeled sorted 
-5b3bc36b70a35d590dedde5bfe13de4e516b64ea refs/remotes/origin/master
-8ad1be28b05410672d5986be58a5c7c1f2e980a2 refs/remotes/origin/tabbar_support_inactive_var
-e04f789317cfe43cd7633a22f970f7440c53b663 refs/remotes/origin/tabbed_improve_switch_to
-9865016028febdf1f864f17dabe9beab6ca70af8 refs/remotes/origin/tag_task_refractor
-f617889ccec586b5a2feabafc6e1f2ca1f1533ac refs/remotes/origin/window_switcher_docs
