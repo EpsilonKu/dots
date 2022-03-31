@@ -180,7 +180,7 @@ awful.keyboard.append_global_keybindings({
         group = "layout"
     }), awful.key({modkey}, "space", function()
         -- awful.layout.inc(1)
-        require("ui.widgets.language_layout").switch()
+        require("ui.widget.language_layout").switch()
     end, {description = "select next", group = "layout"}), -- awful.key(
     --     {modkey, "Shift"},
     --     "space",
