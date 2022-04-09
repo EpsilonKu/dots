@@ -150,8 +150,8 @@ awful.keyboard.append_global_keybindings({
     --           {description = "open music", group = "scratchpad"}),
     awful.key({modkey}, "z", function() require("ui.pop.peek").run() end,
               {description = "peek", group = "client"}),
-    awful.key({modkey}, "f", function() awful.spawn(filemanager) end,
-              {description = "open file browser", group = "launcher"}),
+    --[[ awful.key({modkey}, "f", function() awful.spawn(filemanager) end,
+              {description = "open file browser", group = "launcher"}), ]]
     awful.key({modkey}, "v",
               function() awesome.emit_signal("scratch::chat") end,
               {description = "open chats", group = "scratchpad"}),
@@ -219,7 +219,7 @@ awful.keyboard.append_global_keybindings({
 -- Client management keybinds
 client.connect_signal("request::default_keybindings", function()
     awful.keyboard.append_client_keybindings({
-        awful.key({modkey, "Shift"}, "f", function(c)
+        awful.key({modkey}, "f", function(c)
             c.gullscreen = not c.fullscreen
             c:raise()
         end, {description = "toggle fullscreen", group = "client"}),
@@ -342,14 +342,16 @@ awful.keyboard.append_global_keybindings({
 })
 
 client.connect_signal("request::default_mousebindings", function()
-    awful.mouse.append_client_mousebindings({
-        awful.button({}, 1, function(c)
-            c:activate{context = "mouse_click"}
-        end), awful.button({modkey}, 1, function(c)
-            c:activate{context = "mouse_click", action = "mouse_move"}
-        end), awful.button({modkey}, 3, function(c)
-            c:activate{context = "mouse_click", action = "mouse_resize"}
-        end)
-    })
+  awful.mouse.append_client_mousebindings {
+    awful.button({}, 1, function(c)
+      c:activate { context = "mouse_click" }
+    end),
+    awful.button({ modkey }, 1, function(c)
+      c:activate { context = "mouse_click", action = "mouse_move" }
+    end),
+    awful.button({ modkey }, 3, function(c)
+      c:activate { context = "mouse_click", action = "mouse_resize" }
+    end),
+  }
 end)
 -- EOF ------------------------------------------------------------------------
