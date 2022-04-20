@@ -20,7 +20,7 @@ require("telescope").setup({
         buffer_previewer_maker = new_maker, -- custom preview which will optimize telescope
         prompt_prefix = " ❯ ",
         sorting_strategy = "ascending",
-        file_ignore_patterns = {"node_modules", "target", "dependencies"},
+        file_ignore_patterns = {"node_modules", "target", "dependencies", "modules"},
         mappings = {
             i = {
                 ["<ESC>"] = actions.close,
@@ -37,6 +37,12 @@ require("telescope").setup({
         path_display = {shorten = 5}
     },
     extensions = {
+media_files = {
+      -- filetypes whitelist
+      -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+      filetypes = {"png", "webp", "jpg", "jpeg"},
+      find_cmd = "rg" -- find command (defaults to `fd`)
+    },
         frecency = {
             show_scores = false,
             show_unindexed = true,
@@ -48,4 +54,4 @@ require("telescope").setup({
 })
 
 require('telescope').load_extension('dap')
-
+require('telescope').load_extension('media_files')
