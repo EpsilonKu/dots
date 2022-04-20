@@ -58,7 +58,7 @@ require"lspconfig".clangd.setup {}
 
 require'lspconfig'.vala_ls.setup {}
 
-require'lspconfig'.vuels.setup {}
+-- require'lspconfig'.vuels.setup {}
 
 -- require'lspconfig'.eslint.setup {
     --[[ settings = {
@@ -74,4 +74,25 @@ require('lspconfig').sqls.setup {
     on_attach = function(client, bufnr)
         require('sqls').on_attach(client, bufnr)
     end
+}
+-- NOTE: Volar setup
+local util = require 'lspconfig.util'
+
+local function get_typescript_server_path(root_dir)
+  local project_root = util.find_node_modules_ancestor(root_dir)
+
+  local local_tsserverlib = project_root ~= nil and util.path.join(project_root, 'node_modules', 'typescript', 'lib', 'tsserverlibrary.js')
+  local global_tsserverlib = '/home/epsku/.npm/lib/node_modules/typescript/lib/tsserverlibrary.js'
+
+  if local_tsserverlib and util.path.exists(local_tsserverlib) then
+    return local_tsserverlib
+  else
+    return global_tsserverlib
+  end
+end
+
+require'lspconfig'.volar.setup{
+  on_new_config = function(new_config, new_root_dir)
+    new_config.init_options.typescript.serverPath = get_typescript_server_path(new_root_dir)
+  end,
 }
