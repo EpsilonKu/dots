@@ -33,11 +33,15 @@ vim.cmd [[
 local indent = 4
 vim.o.completeopt = 'menuone,noinsert,noselect'
 vim.g.neovide_refresh_rate=60
--- vim.g.neovide_fullscreen=true
-vim.g.neovide_window_floating_opacity = 100
-vim.g.neovide_floating_blur = 100
+vim.g.neovide_window_floating_opacity = 30
+vim.g.neovide_floating_blur = 50
 -- vim.g.neovide_remember_window_size = true
 vim.g.neovide_cursor_antialiasing=true
+vim.g.neovide_transparency=0.8
+-- vim.g.neovide_fullscreen=true
+vim.g.neovide_cursor_animation_length = 0.02
+vim.g.neovide_cursor_vfx_mode = "pixiedust"
+vim.api.nvim_command('set guifont=CaskaydiaCove\\ Nerd\\ Font\\ Mono:h8')
 opt('b', 'shiftwidth', indent)                        -- Size of an indent
 opt('b', 'smartindent', true)                         -- Insert indents automatically
 opt('b', 'tabstop', indent)                           -- Number of spaces tabs count for
