@@ -1,5 +1,5 @@
 -- Lua initialization file
-require('rose-pine').setup({
+--[[ require('rose-pine').setup({
 	---@usage 'main'|'moon'
 	dark_variant = 'moon',
 	bold_vert_split = false,
@@ -30,7 +30,8 @@ require('rose-pine').setup({
 		-- or set all headings at once
 		-- headings = 'subtle'
 	}
-})
+}) ]]
 
 -- set colorscheme after options
-vim.cmd('colorscheme rose-pine')
+vim.opt.background = "light" -- or "light" for light mode
+vim.cmd([[colorscheme gruvbox]])
