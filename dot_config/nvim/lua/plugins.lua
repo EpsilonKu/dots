@@ -4,8 +4,21 @@ vim.cmd [[ autocmd bufwritepost plugins.lua PackerCompile ]]
 return require("packer").startup(function()
     use {"wbthomason/packer.nvim", opt = true}
 
-    -- {{ neovim lsp
-    use {
+    -- {{ neovim lspsaga
+	use {'shaeinst/penvim',
+		config = function ()
+			require("penvim").setup({
+	project_env = {
+		enable = true,
+		config_name = '.__nvim__.lua'
+	},
+	rooter = {
+		enable = true,
+		patterns = {'init.lua','.__nvim__.lua', '.git', 'node_modules', '.sln', '.svn'}
+	},
+})
+		end} 
+	use {
         "neovim/nvim-lspconfig",
         config = function()
             require("plugins.lsp.lsp")
@@ -83,6 +96,9 @@ return require("packer").startup(function()
             }
         end
     }
+	use {
+		"wakatime/vim-wakatime"
+	}
     use {
         "ur4ltz/surround.nvim",
         config = function()
@@ -206,7 +222,7 @@ return require("packer").startup(function()
     }
     use {
         -- colorscheme
-        "rose-pine/neovim",
+        "ellisonleao/gruvbox.nvim",
         config = function() require("plugins.theme") end
     }
     use {
@@ -292,6 +308,7 @@ return require("packer").startup(function()
         config = function() require("plugins.telescope") end
     }
     use {"LinArcX/telescope-command-palette.nvim"}
+	use {'nvim-telescope/telescope-media-files.nvim'}
     use {
         "AckslD/nvim-neoclip.lua",
         requires = {
