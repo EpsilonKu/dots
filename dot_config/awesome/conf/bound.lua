@@ -101,7 +101,7 @@ awful.keyboard.append_global_keybindings({
     awful.key({modkey, "Shift"}, "d",
               function() awesome.emit_signal("panel::open") end,
               {description = "show panel", group = "awesome"}),
-    awful.key({modkey, "Control"}, "r", awesome.restart,
+    awful.key({modkey, "Control"}, "#27" --[[r]] , awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({modkey, "Control"}, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"})

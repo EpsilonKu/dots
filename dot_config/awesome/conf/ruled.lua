@@ -3,7 +3,7 @@ local ruled = require "ruled"
 
 ruled.client.connect_signal("request::rules", function()
   -- All clients will match this rule.
-  ruled.client.append_rule {
+  --[[ ruled.client.append_rule {
     id = "global",
     rule = {},
     properties = {
@@ -12,7 +12,7 @@ ruled.client.connect_signal("request::rules", function()
       screen = awful.screen.preferred,
       placement = awful.placement.no_overlap + awful.placement.no_offscreen,
     },
-  }
+  } ]]
 
   -- Floating clients.
   ruled.client.append_rule {
@@ -58,6 +58,10 @@ ruled.client.connect_signal("request::rules", function()
   -- }
 end)
 
+-- Force minimized clients to unminimize.
+client.connect_signal("property::minimized", function(c)
+  c.minimized = false
+end)
 ruled.notification.connect_signal("request::rules", function()
   -- All notifications will match this rule.
   ruled.notification.append_rule {
