@@ -60,16 +60,16 @@ require'lspconfig'.vala_ls.setup {}
 
 -- require'lspconfig'.vuels.setup {}
 
--- require'lspconfig'.eslint.setup {
-    --[[ settings = {
+require'lspconfig'.eslint.setup {
+    settings = {
         codeActionsOnSave = {
             mode = "all",
             rules = {"!debugger", "!no-only-tests/*"}
         },
         autoFixOnSave = true
-    } ]]
--- } TODO: Solve error
-
+    }
+}
+-- vim.cmd [[ autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll ]]
 require('lspconfig').sqls.setup {
     on_attach = function(client, bufnr)
         require('sqls').on_attach(client, bufnr)
