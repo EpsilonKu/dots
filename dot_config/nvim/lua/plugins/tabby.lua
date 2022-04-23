@@ -1,5 +1,4 @@
-local util = require('tabby.util')
-
+-- TODO: Recolor bg with gray
 local colors = {
   black        = '#3c3836',
   white        = '#f9f5d7',
@@ -57,7 +56,7 @@ local components = function ()
 	}
 	local tabs = vim.api.nvim_list_tabpages()
 	local current_tab = vim.api.nvim_get_current_tabpage()
-	for _, tabid in ipairs(tabs) do
+	for _, tabid in ipairs(tabs) do -- TODO: Fix when opening two tabs
 		if tabid == current_tab then
 			table.insert(coms, {
 				type = 'tab',

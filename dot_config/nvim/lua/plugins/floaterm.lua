@@ -9,6 +9,7 @@ function M.config()
 
 	U.map ("","<F6>",":cd %:p:h<CR>:w <bar> :FloatermNew --height=0.7 --width=0.7 --wintype=floating --name=Application --autoclose=0 g++ -O2 -Wall % -o %:r && ./%:r<CR>")
 	U.map ("","<F7>",":cd %:p:h<CR>:w <bar> :FloatermNew --height=0.7 --width=0.7 --wintype=floating --name=Application --autoclose=0 npm run dev<CR>")
+	-- U.map ("", "<F4>", ":lua print (require('nvim-gps').get_location())<CR>")
 	require("FTerm").setup({
 		 dimensions  = {
         height = 0.8,

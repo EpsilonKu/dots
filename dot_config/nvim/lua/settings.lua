@@ -30,6 +30,7 @@ vim.cmd [[
 -- endfunction TODO: make auto fill on new java file
 -- ]]
 
+
 local indent = 4
 vim.o.completeopt = 'menuone,noinsert,noselect'
 vim.g.neovide_refresh_rate=60
@@ -62,5 +63,5 @@ opt('o', 'clipboard', 'unnamedplus')
 opt('o', 'pastetoggle', '<F10>')
 opt('w', 'list', true)                                -- Show some invisible characters (tabs...)
 opt('w', 'number', true)                              -- Print line number
-opt('w', 'relativenumber', true)                      -- Relative line numbers
+-- opt('w', 'relativenumber', true)                      -- Relative line numbers
 
