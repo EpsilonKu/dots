@@ -43,6 +43,7 @@ vim.g.neovide_transparency=0.8
 vim.g.neovide_cursor_animation_length = 0.02
 vim.g.neovide_cursor_vfx_mode = "pixiedust"
 vim.api.nvim_command('set guifont=CaskaydiaCove\\ Nerd\\ Font\\ Mono:h8')
+vim.o.laststatus = 3
 opt('b', 'shiftwidth', indent)                        -- Size of an indent
 opt('b', 'smartindent', true)                         -- Insert indents automatically
 opt('b', 'tabstop', indent)                           -- Number of spaces tabs count for
