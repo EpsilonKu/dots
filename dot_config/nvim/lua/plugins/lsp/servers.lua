@@ -49,7 +49,14 @@ require"lspconfig".html.setup {
     init_options = {
         configurationSection = {"html", "css", "javascript"},
         embeddedLanguages = {css = true, javascript = true}
-    }
+    },
+	cmd = { "vscode-html-languageserver", "--stdio" },
+	provideFormatter = true
+}
+
+require'lspconfig'.cssls.setup {
+	capabilities = capabilities,
+	cmd = { "vscode-css-languageserver", "--stdio" },
 }
 
 require'lspconfig'.cmake.setup {}
@@ -96,3 +103,5 @@ require'lspconfig'.volar.setup{
     new_config.init_options.typescript.serverPath = get_typescript_server_path(new_root_dir)
   end,
 }
+--[[ require'lspconfig'.cssmodules_ls.setup{
+} ]]
