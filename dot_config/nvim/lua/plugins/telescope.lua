@@ -55,3 +55,4 @@ media_files = {
 
 require('telescope').load_extension('dap')
 require('telescope').load_extension('media_files')
+require('telescope').load_extension('projects')

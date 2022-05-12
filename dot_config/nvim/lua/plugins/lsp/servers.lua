@@ -15,7 +15,6 @@ lsp.sumneko_lua.setup({
     flags = flags,
     capabilities = capabilities,
     on_attach = function(client, buf)
-        U.disable_formatting(client)
         U.mappings(buf)
     end,
     settings = {

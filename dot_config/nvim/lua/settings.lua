@@ -42,7 +42,7 @@ vim.g.neovide_transparency=0.8
 -- vim.g.neovide_fullscreen=true
 vim.g.neovide_cursor_animation_length = 0.02
 vim.g.neovide_cursor_vfx_mode = "pixiedust"
-vim.api.nvim_command('set guifont=CaskaydiaCove\\ Nerd\\ Font\\ Mono:h8')
+-- vim.api.nvim_command('set guifont=CaskaydiaCove\\ Nerd\\ Font\\ Mono:h10')
 vim.o.laststatus = 3
 opt('b', 'shiftwidth', indent)                        -- Size of an indent
 opt('b', 'smartindent', true)                         -- Insert indents automatically
@@ -65,4 +65,4 @@ opt('o', 'pastetoggle', '<F10>')
 opt('w', 'list', true)                                -- Show some invisible characters (tabs...)
 opt('w', 'number', true)                              -- Print line number
 -- opt('w', 'relativenumber', true)                      -- Relative line numbers
-
+-- vim.cmd [[setlocal dictionary= ./cssdict.txt]]

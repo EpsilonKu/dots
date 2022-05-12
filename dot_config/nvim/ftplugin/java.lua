@@ -1,6 +1,6 @@
 local function jdtls_on_attach()
     require("jdtls.setup").add_commands()
-    require("jdtls").setup_dap()
+	require('jdtls').setup_dap({ hotcodereplace = 'auto' })
     require("jdtls.dap").setup_dap_main_class_configs()
     require("lsp_signature").on_attach()
     vim.cmd [[

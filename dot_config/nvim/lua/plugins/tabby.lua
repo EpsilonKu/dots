@@ -42,6 +42,13 @@ local components = function ()
 		{
 			type = 'text',
 			text = {
+				'',
+				hl = hl_sep_inactive
+			}
+		},
+		{
+			type = 'text',
+			text = {
 				'  ',
 				hl = hl_inactive
 			}
