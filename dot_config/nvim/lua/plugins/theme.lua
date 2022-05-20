@@ -1,37 +1,9 @@
--- Lua initialization file
---[[ require('rose-pine').setup({
-	---@usage 'main'|'moon'
-	dark_variant = 'moon',
-	bold_vert_split = false,
-	dim_nc_background = false,
-	disable_background = false,
-	disable_float_background = false,
-	disable_italics = false,
-	---@usage string hex value or named color from rosepinetheme.com/palette
-	groups = {
-		border = 'highlight_med',
-		comment = 'muted',
-		link = 'iris',
-		punctuation = 'subtle',
-
-		error = 'love',
-		hint = 'iris',
-		info = 'foam',
-		warn = 'gold',
-
-		headings = {
-			h1 = 'iris',
-			h2 = 'foam',
-			h3 = 'rose',
-			h4 = 'gold',
-			h5 = 'pine',
-			h6 = 'foam',
-		}
-		-- or set all headings at once
-		-- headings = 'subtle'
-	}
-}) ]]
-
--- set colorscheme after options
-vim.opt.background = "light" -- or "light" for light mode
-vim.cmd([[colorscheme gruvbox]])
+vim.g.gruvbox_material_enable_italic = 1
+vim.g.gruvbox_material_cursor = "green"
+vim.g.gruvbox_material_diagnostic_text_highlight = 1
+vim.g.gruvbox_material_diagnostic_virtual_text = 1
+vim.g.gruvbox_material_statusline_style = "material"
+vim.g.gruvbox_material_better_performance = 1
+vim.g.gruvbox_material_palette = "material"
+vim.g.gruvbox_material_background = "soft"
+vim.cmd([[colorscheme gruvbox-material]])

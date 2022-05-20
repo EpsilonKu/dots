@@ -24,12 +24,12 @@ local bundles = {
     vim.fn.glob(home ..
                     "/.local/bin/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
 }
-local on_init = function(client) -- NOTE: This is for lsp_signature plugin
+--[[ local on_init = function(client) -- NOTE: This is for lsp_signature plugin
     if client.config.settings then
         client.notify('workspace/didChangeConfiguration',
                       {settings = client.config.settings})
     end
-end
+end ]]
 local settings = {java = {contentProvider = {preferred = "fernflower"}}}
 
 config.init_options = {bundles = bundles}

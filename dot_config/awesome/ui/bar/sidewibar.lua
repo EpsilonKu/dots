@@ -35,7 +35,7 @@ awesome_icon:connect_signal("mouse::enter", function()
 end)
 
 awesome_icon:connect_signal("mouse::leave",
-							function() awesome_icon.bg = beautiful.wibar_bg end)
+	function() awesome_icon.bg = beautiful.wibar_bg end)
 
 -- battery bar widget ---------------------------------------------------------
 
@@ -101,7 +101,7 @@ awesome.connect_signal("signal::battery", function(percentage, state)
 	battery_bar.value = value
 
 	battery_icon.markup = "<span foreground='" .. beautiful.xcolor12 .. "'>" ..
-							  bat_icon .. "</span>"
+		bat_icon .. "</span>"
 end)
 
 -- Volume Bar Widget ---------------------------------------------------------
@@ -114,7 +114,7 @@ local volume_icon = wibox.widget {
 }
 
 local volume_widget = wibox.widget {
-	{volume_icon, right = dpi(1), widget = wibox.container.margin},
+	{ volume_icon, right = dpi(1), widget = wibox.container.margin },
 	max_value = 100,
 	min_value = 0,
 	value = 80,
@@ -122,7 +122,7 @@ local volume_widget = wibox.widget {
 	start_angle = math.pi * 3 / 2,
 	rounded_edge = true,
 	bg = beautiful.lighter_bg,
-	colors = {beautiful.xcolor2},
+	colors = { beautiful.xcolor2 },
 	widget = wibox.container.arcchart
 }
 
@@ -144,7 +144,7 @@ awesome.connect_signal("signal::volume", function(vol, muted)
 	volume_widget.value = val
 
 	volume_icon.markup = "<span foreground='" .. beautiful.xcolor2 .. "'>" ..
-							 vol_icon .. "</span>"
+		vol_icon .. "</span>"
 end)
 
 -- Brightness Bar Widget ---------------------------------------------------------
@@ -157,7 +157,7 @@ local bright_icon = wibox.widget {
 }
 
 local bright_widget = wibox.widget {
-	{bright_icon, right = dpi(1), widget = wibox.container.margin},
+	{ bright_icon, right = dpi(1), widget = wibox.container.margin },
 	max_value = 100,
 	min_value = 0,
 	value = 80,
@@ -165,7 +165,7 @@ local bright_widget = wibox.widget {
 	start_angle = math.pi * 3 / 2,
 	rounded_edge = true,
 	bg = beautiful.lighter_bg,
-	colors = {beautiful.xcolor5},
+	colors = { beautiful.xcolor5 },
 	widget = wibox.container.arcchart
 }
 
@@ -185,7 +185,7 @@ awesome.connect_signal("signal::brightness", function(percentage)
 	bright_widget.value = val
 
 	bright_icon.markup = "<span foreground='" .. beautiful.xcolor5 .. "'>" ..
-							 bri_icon .. "</span>"
+		bri_icon .. "</span>"
 end)
 
 -- Clock Widget ----------------------------------------------------------------
@@ -202,24 +202,24 @@ minutetextbox.valign = "center"
 
 hourtextbox:connect_signal("widget::redraw_needed", function()
 	hourtextbox.markup = helpers.colorize_text(hourtextbox.text,
-											   beautiful.xcolor5)
+		beautiful.xcolor5)
 end)
 
 minutetextbox:connect_signal("widget::redraw_needed", function()
 	minutetextbox.markup = helpers.colorize_text(minutetextbox.text,
-												 beautiful.xforeground)
+		beautiful.xforeground)
 end)
 
 local clock = wibox.widget {
-	{hourtextbox, minutetextbox, layout = wibox.layout.fixed.vertical},
+	{ hourtextbox, minutetextbox, layout = wibox.layout.fixed.vertical },
 	bg = beautiful.xcolor0 .. "00",
 	widget = wibox.container.background
 }
 
 local datetooltip = awful.tooltip {};
 datetooltip.shape = helpers.prrect(beautiful.border_radius, false, true, true,
-								   false)
-datetooltip.preferred_alignments = {"middle", "front", "back"}
+	false)
+datetooltip.preferred_alignments = { "middle", "front", "back" }
 datetooltip.mode = "outside"
 datetooltip:add_to_object(clock)
 datetooltip.text = os.date("%d.%m.%y") -- just don't stay up long enough for that to change
@@ -241,7 +241,7 @@ local sys_button = wibox.widget {
 
 local sys_popup = awful.popup {
 	widget = wibox.widget {
-		{mysystray, margins = 10, widget = wibox.container.margin},
+		{ mysystray, margins = 10, widget = wibox.container.margin },
 		forced_height = 65,
 		bg = beautiful.darker_bg,
 		widget = wibox.container.background
@@ -250,7 +250,7 @@ local sys_popup = awful.popup {
 	visible = false,
 	placement = function(c)
 		awful.placement.bottom_left(c, {
-			margins = {left = beautiful.wibar_width + 10, bottom = 20}
+			margins = { left = beautiful.wibar_width + 10, bottom = 20 }
 		})
 	end,
 	shape = gears.shape.rounded_rect
@@ -265,24 +265,24 @@ sys_button:buttons(gears.table.join(awful.button({}, 1, function()
 end)))
 
 sys_button:connect_signal("mouse::enter",
-						  function() sys_button.bg = beautiful.xcolor8 end)
+	function() sys_button.bg = beautiful.xcolor8 end)
 
 sys_button:connect_signal("mouse::leave",
-						  function() sys_button.bg = beautiful.xforeground end)
+	function() sys_button.bg = beautiful.xforeground end)
 
 -- Tasklist Buttons -----------------------------------------------------------
 
 local tasklist_buttons = gears.table.join(
-							 awful.button({}, 1, function(c)
+	awful.button({}, 1, function(c)
 		if c == client.focus then
 			c.minimized = true
 		else
-			c:emit_signal("request::activate", "tasklist", {raise = true})
+			c:emit_signal("request::activate", "tasklist", { raise = true })
 		end
 	end), awful.button({}, 3, function()
-		awful.menu.client_list({theme = {width = 250}})
+		awful.menu.client_list({ theme = { width = 250 } })
 	end), awful.button({}, 4, function() awful.client.focus.byidx(1) end),
-							 awful.button({}, 5, function()
+	awful.button({}, 5, function()
 		awful.client.focus.byidx(-1)
 	end))
 
@@ -308,7 +308,7 @@ local wrap_widget = function(w)
 end
 
 local wrap_widget2 = function(w)
-	return {w, left = dpi(20), right = dpi(20), widget = wibox.container.margin}
+	return { w, left = dpi(20), right = dpi(20), widget = wibox.container.margin }
 end
 
 screen.connect_signal("request::desktop_decoration", function(s)
@@ -377,7 +377,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		widget = wibox.container.background
 	}
 
-	s.mywibox:struts{left = beautiful.wibar_width}
+	s.mywibox:struts { left = beautiful.wibar_width }
 
 	local panel_timed = rubato.timed {
 		intro = 0.2,
@@ -403,7 +403,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
 	-- Remove wibar on full screen
 	local function remove_wibar(c)
-		if c.fullscreen or c.maximized then
+		if c.fullscreen then
 			c.screen.mywibox.visible = false
 		else
 			c.screen.mywibox.visible = true
@@ -451,7 +451,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 					widget = wibox.container.margin
 				})
 			},
-			{s.mypromptbox, widget = wibox.container.constraint},
+			{ s.mypromptbox, widget = wibox.container.constraint },
 			{
 				wrap_widget(clock),
 				wrap_widget({

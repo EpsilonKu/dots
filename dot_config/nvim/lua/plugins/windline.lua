@@ -182,6 +182,11 @@ basic.gps = {
         default = {"black", "blue"}
     }
 }
+basic.tabs = {
+	text = function ()
+		local result = {}
+	end
+}
 local default = {
     filetypes = {"default"},
     active = {
@@ -191,6 +196,7 @@ local default = {
         {vim_components.search_count(), {"red", "white_light"}},
         basic.gps,
         basic.divider,
+		basic.divider,
         basic.lsp_diagnos,
         basic.git,
         {git_comps.git_branch({icon = "  "}), {"green", "black"}, 90},

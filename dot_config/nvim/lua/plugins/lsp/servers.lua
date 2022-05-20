@@ -16,6 +16,7 @@ lsp.sumneko_lua.setup({
     capabilities = capabilities,
     on_attach = function(client, buf)
         U.mappings(buf)
+		require "lsp-format".on_attach(client)
     end,
     settings = {
         Lua = {
