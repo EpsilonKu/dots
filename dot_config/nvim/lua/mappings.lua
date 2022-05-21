@@ -143,7 +143,11 @@ wk.register(
 wk.register(
 	{
 	["<Space>"] = {
-		t = { ":Neotree float toggle<CR>", " File Tree Toggle" }
+		t = { ":Neotree reveal float toggle<CR>", " File Tree Toggle" },
+		o = {
+			":ToggleTerm<CR>",
+			" Toggle Terminal"
+		}
 	}
 }
 )
@@ -206,13 +210,6 @@ wk.register(
 		},
 		v = { ":lua vim.lsp.buf.outgoing_calls()<CR>", " Outgoing calls" }
 	},
-	["<Space>t"] = {
-		name = "+Terminal",
-		o = {
-			":ToggleTerm<CR>",
-			" Toggle Terminal"
-		}
-	}
 }
 )
 function _G.set_terminal_keymaps()
