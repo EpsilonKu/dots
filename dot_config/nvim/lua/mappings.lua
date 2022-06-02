@@ -27,199 +27,205 @@ U.map("i", "<C-d>", "<Esc>:bnext <CR> i")
 U.map("i", "<C-a>", "<Esc>:bprevious<CR> i")
 wk.register(
 	{
-	["<Space>s"] = {
-		name = "+Common",
-		s = { ":SymbolsOutline<CR>", " Symbol Outline Toggle" },
-		f = { ":lua require('session-lens').search_session()<CR>", " Session list" },
-		t = { ":lua require('FTerm').close()<CR>", "  Terminal Close Float" },
-		o = { ":lua require('FTerm').open()<CR>", "  Terminal Open Float" },
-		l = { ":Neoformat<CR>", "  Format code" }
-	}
-}
-)
-wk.register(
-	{
-	["<Space>w"] = {
-		name = "+Window management",
-		x = { ":lua require('FTerm').close()<CR>", "  Terminal Close Float" },
-		o = { ":lua require('FTerm').open()<CR>", "  Terminal Open Float" },
-		t = { ":lua require('dapui').toggle('tray')<CR>", " Dap UI toggle" },
-		f = { ":tabnext<CR>", " Next Tab" },
-		j = { ":tabprevious<CR>", "Prev Tab" },
-		i = { ":tabnew<CR>", "New Tab" },
-		d = { ":bdelete<CR>", "Buffer close" },
-		q = { ":tabclose<CR>", " Tab close" },
-		w = { ":lua require('nvim-window').pick()<CR>", " Window pick" }
-	}
-}
-)
-wk.register(
-	{
-	["<Space>r"] = {
-		name = "+Sessions",
-		c = {
-			":lua require('persistence').load()<CR>",
-			" Load session from Directory"
-		},
-		l = {
-			":lua require('persistence').load({ last = true })<CR>",
-			" Load last session"
-		},
-		s = { ":lua require('persistence').stop()<CR>", " Exit session" }
-	}
-}
-)
-wk.register(
-	{
-	["<Space>e"] = {
-		name = "+Quick Actions",
-		w = { ":lua vim.lsp.buf.workspace_symbol()<CR>", " Workspace symbol" },
-		d = { ":lua vim.lsp.buf.document_symbol()<CR>", " Document symbol" },
-		r = {
-			":lua require('lspsaga.rename').rename()<CR>",
-			" Variable rename"
-		},
-		s = {
-			":lua require('navigator.diagnostics').show_diagnostic()<CR>",
-			" Show all buffer diagnostic"
-		},
-		f = { ":lua vim.lsp.buf.formatting()<CR>", "Format code with lsp" }
-	},
-	["<Space>d"] = {
-		name = "+Debugger",
-		a = {
-			":lua require'dap'.toggle_breakpoint()<CR>",
-			"  Toggle Breakpoint"
-		},
-		s = { ":lua require'dap'.step_over()<CR>", "  Debug Step Over" },
-		d = { ":lua require'dap'.step_into()<CR>", "  Debug Step Into" },
-		f = { ":lua require'dap'.step_out()<CR>", "  Debug Step Out" },
-		e = { ":lua require'dap'.continue()<CR>", "  Debug Continue" },
-		q = { ":lua require'dap'.close()<CR>", " 栗Debug Stop Process" }
-	},
-	["<Space>a"] = {
-		name = "+Debugger quick actions",
-		f = { ":Telescope dap frames<CR>", " ﮆ Frames" },
-		b = { ":Telescope dap list_breakpoints<CR>", " ךּ List breakpoints" },
-		v = { ':lua require("dapui").eval()<CR>', "  Variables" },
-		c = { ":Telescope dap commands<CR>", " גּ Debug commands" },
-		e = { ":lua require('dap.ui.widgets').hover()<CR>", "  Debug Float" },
-		i = {
-			':lua require("dapui").float_element("stacks")<CR>',
-			"  Variables hover"
+		["<Space>s"] = {
+			name = "+Common",
+			s = { ":SymbolsOutline<CR>", " Symbol Outline Toggle" },
+			f = { ":lua require('session-lens').search_session()<CR>", " Session list" },
+			t = { ":lua require('FTerm').close()<CR>", "  Terminal Close Float" },
+			o = { ":lua require('FTerm').open()<CR>", "  Terminal Open Float" },
+			l = { ":Neoformat<CR>", "  Format code" }
 		}
 	}
-}
 )
 wk.register(
 	{
-	["e"] = {
-		name = "+Lsp Actions",
-		r = {
-			":lua require('lspsaga.signaturehelp').signature_help()<CR>",
-			" References"
-		},
-		d = {
-			":lua require'lspsaga.provider'.preview_definition()<CR>",
-			" Definition"
-		},
-		e = { ":lua vim.lsp.buf.definition()<CR>", " Go to definition" },
-		i = { ":lua require'lspsaga.provider'.lsp_finder()<CR>", " Usage" },
-		h = {
-			":lua require('lspsaga.hover').render_hover_doc()<CR>",
-			" Hover documentation"
-		},
-		a = {
-			":lua require('lspsaga.codeaction').code_action()<CR>",
-			" Code action"
-		},
-		s = {
-			":lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>",
-			" Show diagnostic line"
+		["<Space>w"] = {
+			name = "+Window management",
+			x = { ":lua require('FTerm').close()<CR>", "  Terminal Close Float" },
+			o = { ":lua require('FTerm').open()<CR>", "  Terminal Open Float" },
+			t = { ":lua require('dapui').toggle('tray')<CR>", " Dap UI toggle" },
+			f = { ":tabnext<CR>", " Next Tab" },
+			j = { ":tabprevious<CR>", "Prev Tab" },
+			i = { ":tabnew<CR>", "New Tab" },
+			d = { ":bdelete<CR>", "Buffer close" },
+			q = { ":tabclose<CR>", " Tab close" },
+			w = { ":lua require('nvim-window').pick()<CR>", " Window pick" }
 		}
 	}
-}
 )
 wk.register(
 	{
-	["<Space>"] = {
-		t = { ":Neotree reveal float toggle<CR>", " File Tree Toggle" },
-		o = {
-			":ToggleTerm<CR>",
-			" Toggle Terminal"
+		["<Space>r"] = {
+			name = "+Sessions",
+			c = {
+				":lua require('persistence').load()<CR>",
+				" Load session from Directory"
+			},
+			l = {
+				":lua require('persistence').load({ last = true })<CR>",
+				" Load last session"
+			},
+			s = { ":lua require('persistence').stop()<CR>", " Exit session" }
 		}
 	}
-}
 )
 wk.register(
 	{
-	["<Space>f"] = {
-		name = "+Search",
-		a = {
-			":lua require('telescope.builtin').find_files()<CR>",
-			"  Telescope find file"
+		["<Space>e"] = {
+			name = "+Quick Actions",
+			w = { ":lua vim.lsp.buf.workspace_symbol()<CR>", " Workspace symbol" },
+			d = { ":lua vim.lsp.buf.document_symbol()<CR>", " Document symbol" },
+			r = {
+				":lua require('lspsaga.rename').rename()<CR>",
+				" Variable rename"
+			},
+			s = {
+				":lua require('navigator.diagnostics').show_diagnostic()<CR>",
+				" Show all buffer diagnostic"
+			},
+			f = { ":lua vim.lsp.buf.formatting()<CR>", "Format code with lsp" }
 		},
-		s = {
-			":Telescope file_browser<CR>",
-			"  Telescope file manager"
+		["<Space>d"] = {
+			name = "+Debugger",
+			a = {
+				":lua require'dap'.toggle_breakpoint()<CR>",
+				"  Toggle Breakpoint"
+			},
+			s = { ":lua require'dap'.step_over()<CR>", "  Debug Step Over" },
+			d = { ":lua require'dap'.step_into()<CR>", "  Debug Step Into" },
+			f = { ":lua require'dap'.step_out()<CR>", "  Debug Step Out" },
+			e = { ":lua require'dap'.continue()<CR>", "  Debug Continue" },
+			q = { ":lua require'dap'.close()<CR>", " 栗Debug Stop Process" }
 		},
-		b = {
-			":lua require('telescope.builtin').buffers()<CR>",
-			" ﬘ Telescope list buffer"
-		},
-		c = {
-			":lua require('telescope.builtin').live_grep()<CR>",
-			"  Telescope live grep"
-		},
-		d = {
-			":lua require('telescope').extensions.neoclip.default()<CR>",
-			"  Telescope clip"
-		},
-		e = {
-			":lua require('telescope.builtin').help_tags()<CR>",
-			"  Telescope help tags"
-		},
-		r = { ":lua require('spectre').open()<CR>", "﯒ Search and Replace" },
-		f = {
-			":lua require('telescope').extensions.frecency.frecency()<CR>",
-			"Telescope frecency"
+		["<Space>a"] = {
+			name = "+Debugger quick actions",
+			f = { ":Telescope dap frames<CR>", " ﮆ Frames" },
+			b = { ":Telescope dap list_breakpoints<CR>", " ךּ List breakpoints" },
+			v = { ':lua require("dapui").eval()<CR>', "  Variables" },
+			c = { ":Telescope dap commands<CR>", " גּ Debug commands" },
+			e = { ":lua require('dap.ui.widgets').hover()<CR>", "  Debug Float" },
+			i = {
+				':lua require("dapui").float_element("stacks")<CR>',
+				"  Variables hover"
+			}
 		}
 	}
-}
 )
 wk.register(
 	{
-	["<Space>z"] = {
-		name = "+Diag Actions",
-		d = {
-			":require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>",
-			" Diagnostic next"
-		},
-		r = {
-			":lua require('navigator.treesitter').goto_next_usage()<CR>",
-			" Next variables usage"
-		},
-		c = { ":lua vim.lsp.buf.incoming_calls()<CR>", " Incoming calls" },
-		a = {
-			":require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>",
-			" Diagnostic prev"
-		},
-		e = {
-			":lua require('navigator.treesitter').goto_previous_usage()<CR>",
-			" Prev variables usage"
-		},
-		v = { ":lua vim.lsp.buf.outgoing_calls()<CR>", " Outgoing calls" }
-	},
-}
+		["e"] = {
+			name = "+Lsp Actions",
+			r = {
+				":lua require('lspsaga.signaturehelp').signature_help()<CR>",
+				" References"
+			},
+			d = {
+				":lua require'lspsaga.provider'.preview_definition()<CR>",
+				" Definition"
+			},
+			e = { ":lua vim.lsp.buf.definition()<CR>", " Go to definition" },
+			i = { ":lua require'lspsaga.provider'.lsp_finder()<CR>", " Usage" },
+			h = {
+				":lua require('lspsaga.hover').render_hover_doc()<CR>",
+				" Hover documentation"
+			},
+			a = {
+				":lua require('lspsaga.codeaction').code_action()<CR>",
+				" Code action"
+			},
+			s = {
+				":lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>",
+				" Show diagnostic line"
+			}
+		}
+	}
 )
-function _G.set_terminal_keymaps()
-	vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
-	vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
-	vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
-	vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
-	vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
-	vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
-end
+wk.register(
+	{
+		["<Space>"] = {
+			t = { ":Neotree reveal float toggle<CR>", " File Tree Toggle" },
+			o = {
+				":ToggleTerm<CR>",
+				" Toggle Terminal"
+			},
+			q = {
+				function()
+					require("plugins.dap-ui").close()
+					require("dapui").close()
+				end, " quit all"
+			}
+		}
+	}
+)
+wk.register(
+	{
+		["<Space>f"] = {
+			name = "+Search",
+			a = {
+				":lua require('telescope.builtin').find_files()<CR>",
+				"  Telescope find file"
+			},
+			s = {
+				":Telescope file_browser<CR>",
+				"  Telescope file manager"
+			},
+			b = {
+				":lua require('telescope.builtin').buffers()<CR>",
+				" ﬘ Telescope list buffer"
+			},
+			c = {
+				":lua require('telescope.builtin').live_grep()<CR>",
+				"  Telescope live grep"
+			},
+			d = {
+				":lua require('telescope').extensions.neoclip.default()<CR>",
+				"  Telescope clip"
+			},
+			e = {
+				":lua require('telescope.builtin').help_tags()<CR>",
+				"  Telescope help tags"
+			},
+			r = { ":lua require('spectre').open()<CR>", "﯒ Search and Replace" },
+			f = {
+				":lua require('telescope').extensions.frecency.frecency()<CR>",
+				"Telescope frecency"
+			}
+		}
+	}
+)
+wk.register(
+	{
+		["<Space>z"] = {
+			name = "+Diag Actions",
+			d = {
+				":require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>",
+				" Diagnostic next"
+			},
+			r = {
+				":lua require('navigator.treesitter').goto_next_usage()<CR>",
+				" Next variables usage"
+			},
+			c = { ":lua vim.lsp.buf.incoming_calls()<CR>", " Incoming calls" },
+			a = {
+				":require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>",
+				" Diagnostic prev"
+			},
+			e = {
+				":lua require('navigator.treesitter').goto_previous_usage()<CR>",
+				" Prev variables usage"
+			},
+			v = { ":lua vim.lsp.buf.outgoing_calls()<CR>", " Outgoing calls" }
+		},
+	}
+)
+-- function _G.set_terminal_keymaps()
+vim.api.nvim_set_keymap('t', '<esc>', [[<C-\><C-n>]], opts)
+vim.api.nvim_set_keymap('t', 'jk', [[<C-\><C-n>]], opts)
+vim.api.nvim_set_keymap('t', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
+vim.api.nvim_set_keymap('t', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
+vim.api.nvim_set_keymap('t', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
+vim.api.nvim_set_keymap('t', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
+-- end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+-- vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')

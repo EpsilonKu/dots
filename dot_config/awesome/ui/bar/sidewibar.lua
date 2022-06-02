@@ -403,7 +403,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
 	-- Remove wibar on full screen
 	local function remove_wibar(c)
-		if c.fullscreen then
+		if client.focus.fullscreen then
 			c.screen.mywibox.visible = false
 		else
 			c.screen.mywibox.visible = true
@@ -411,11 +411,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	end
 
 	-- Remove wibar on full screen
-	local function add_wibar(c)
+	--[[ local function add_wibar(c)
 		if c.fullscreen or c.maximized then
 			c.screen.mywibox.visible = true
 		end
-	end
+	end ]]
 
 	-- Hide bar when a splash widget is visible
 	--[[ awesome.connect_signal("widgets::splash::visibility", function(vis)
@@ -424,7 +424,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
 	client.connect_signal("property::fullscreen", remove_wibar)
 
-	client.connect_signal("request::unmanage", add_wibar)
+	-- client.connect_signal("request::unmanage", add_wibar)
 
 	-- Create the taglist widget
 	s.mytaglist = require("ui.widgets.tagsklist")(s)
