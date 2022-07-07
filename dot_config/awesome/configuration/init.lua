@@ -8,7 +8,8 @@ require("configuration.autostart")
 -- Default Applications
 terminal = "gnome-terminal"
 editor = "nvim"
-editor_cmd = terminal .. " start " .. os.getenv("EDITOR")
+-- editor_cmd = terminal .. " start " .. os.getenv("EDITOR")
+editor_cmd = "nvim"
 browser = "google-chrome-stable"
 filemanager = "nautilus"
 discord = "discord"

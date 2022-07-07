@@ -6,11 +6,11 @@ local bling = require("module.bling")
 local rubato = require("module.rubato")
 
 -- Enable Playerctl Module from Bling
-bling.signal.playerctl.enable {
-    ignore = {},
-    backend = "playerctl_lib",
-    update_on_activity = true
-}
+-- bling.signal.playerctl.enable {
+--     ignore = {},
+--     backend = "playerctl_lib",
+--     update_on_activity = true
+-- }
 
 bling.widget.tag_preview.enable {
     show_client_content = false,
