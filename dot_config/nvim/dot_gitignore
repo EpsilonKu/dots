@@ -1,4 +1,5 @@
-
-*.log
-plugin/
-sessions/
+plugin/*
+spell/*
+undo/*
+snips/*
+lua/config/modules/*

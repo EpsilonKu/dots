@@ -1,23 +1,38 @@
+-- Load All packer plugins
+require('plug')
 
-local D = os.getenv("DOTFILES") or os.getenv("HOME") .. "/.dotfiles"
-local o = vim.o
+-- load keybindings and editor options
+require('keymap')
+require('options')
+require('autocmds')
 
--- This is a magic line that will take your pain away.
-o.rtp = string.format("%s/neovim,%s", D, o.rtp)
+-- load theme loading library
+local scheme = require('lib.scheme')
 
--- {{ Packer Init
-local execute = vim.api.nvim_command
-local fn = vim.fn
+-- Load Themes (loads everforest theme by default)
+-- load editor color theme
+-- scheme.load_scheme('everforest')
 
-local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+-- load statusline theme
+-- scheme.load_lualine_scheme('everforest')
 
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
-  execute 'packadd packer.nvim'
-end
--- }}
+-- if you don't  want to specify the theme for each component,
+-- you can use the following function
+scheme.load_shared_scheme('everforest')
 
--- Vanilla Config
-require "settings"
-require "plugins"
-require "mappings"
+-- set the statusline and tabline style
+-- you can change the characters used
+-- for seperators in the statusline and tabline
+-- for instance, we can use bubble characters
+-- scheme.load_global_style({'', ''}, {'', ''})
+
+-- load configurations
+-- config.plug loads plugin configurations
+-- config.lsp handles al lsp server configuration
+-- config.module loads user contrib files (work in progress)
+require('config.lsp')
+require('config.dap')
+require('config.plug')
+require('config.modules')
+
+-- # vim foldmethod=marker

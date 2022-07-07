@@ -1,3 +1,4 @@
+
 local function jdtls_on_attach()
     require("jdtls.setup").add_commands()
 	require('jdtls').setup_dap({ hotcodereplace = 'auto' })
@@ -34,7 +35,6 @@ local settings = {java = {contentProvider = {preferred = "fernflower"}}}
 
 config.init_options = {bundles = bundles}
 config.settings = settings
-config.on_init = on_init
 config.cmd = {
 	'java',
 	'-Declipse.application=org.eclipse.jdt.ls.core.id1',
@@ -52,50 +52,7 @@ config.cmd = {
 	"-configuration", vim.fn.glob(home .. "/.local/bin/jdtls/config_linux"),
 	"-data", workspace_dir,
 }
---[[ config.cmd = {
-    "/usr/lib/jvm/java-11-openjdk/bin/java",
-	'-Dcatalina.base="' .. home ..
-        '/.local/bin/wtp/.plugins/org.eclipse.wst.server.core/tmp0"',
-    '-Dcatalina.home="' .. home .. '/.local/bin/apache-tomcat"',
-    '-Dwtp.deploy="' .. home ..
-        '/.local/bin/wtp/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps"',
-    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-    "-Dosgi.bundles.defaultStartLevel=4",
-    "-Declipse.product=org.eclipse.jdt.ls.core.product", "-Dlog.protocol=true",
-    "-Dlog.level=ALL", "-Xmx1G", "-Xmx2G",
-    "-javaagent:" .. home .. "/.local/bin/lombok.jar", "-configuration", "-jar",
-    vim.fn.glob(home .. "/.local/bin/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
-    vim.fn.glob(home .. "/.local/bin/jdtls/config_linux"), "-data",
-    workspace_dir, "--add-modules=ALL-SYSTEM",
-    "--add-opens java.base/java.util=ALL-UNNAMED",
-    "--add-opens java.base/java.lang=ALL-UNNAMED"
-} ]]
--- config.cmd = {
--- 	"/usr/lib/jvm/java-11-openjdk/bin/java",
--- 	'-Dcatalina.base="' .. home .. '/.local/bin/wtp/.plugins/org.eclipse.wst.server.core/tmp0"',
---     '-Dcatalina.home="' .. home .. '/.local/bin/apache-tomcat"',
---     '-Dwtp.deploy="' .. home .. '/.local/bin/wtp/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps"',
--- 	'--add-opens=java.base/java.lang=ALL-UNNAMED',
---     '--add-opens=java.base/java.io=ALL-UNNAMED',
---     '--add-opens=java.base/java.util=ALL-UNNAMED',
---     '--add-opens=java.base/java.util.concurrent=ALL-UNNAMED',
---     '--add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED',
--- 	"-jar", vim.fn.glob(home .. "/.local/bin/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
---     "-configuration", vim.fn.glob(home .. "/.local/bin/jdtls/config_linux"),
--- }
 config.on_attach = jdtls_on_attach
 config.root_dir = root_dir
 config.filetype = {"java"}
 require("jdtls").start_or_attach(config)
--- local dap = require('dap')
---
---    dap.configurations.java = {
---       {
---         type = 'java';
---         request = 'attach';
---         name = 'Tomcat';
---         hostName = '127.0.0.1';
---         port = 8000;
---         projectName = 'nw_business';
---       },
---     }
