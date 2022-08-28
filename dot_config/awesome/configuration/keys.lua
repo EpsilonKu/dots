@@ -138,8 +138,8 @@ awful.keyboard.append_global_keybindings({
 	--           {description = "open music", group = "scratchpad"}),
 	awful.key({ modkey }, "z", function() require("ui.pop.peek").run() end,
 		{ description = "peek", group = "client" }),
-	awful.key({ modkey }, "f", function() awful.spawn(filemanager) end,
-		{ description = "open file browser", group = "launcher" }),
+	-- awful.key({ modkey }, "f", function() awful.spawn(filemanager) end,
+	-- 	{ description = "open file browser", group = "launcher" }),
 	awful.key({ modkey }, "v",
 		function() awesome.emit_signal("scratch::chat") end,
 		{ description = "open chats", group = "scratchpad" }),
@@ -207,8 +207,8 @@ awful.keyboard.append_global_keybindings({
 -- Client management keybinds
 client.connect_signal("request::default_keybindings", function()
 	awful.keyboard.append_client_keybindings({
-		awful.key({ modkey, "Shift" }, "f", function(c)
-			c.gullscreen = not c.fullscreen
+		awful.key({ modkey }, "f", function(c)
+			c.fullscreen = not c.fullscreen
 			c:raise()
 		end, { description = "toggle fullscreen", group = "client" }),
 		awful.key({ modkey, "Shift" }, "q", function(c) c:kill() end,
