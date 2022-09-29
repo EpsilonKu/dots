@@ -9,6 +9,14 @@ api.nvim_create_autocmd({ 'BufWritePre' }, {
   end,
 })
 
+api.nvim_create_autocmd('BufRead', {
+  group = my_group,
+  pattern = '*.conf',
+  callback = function()
+    api.nvim_buf_set_option(0, 'filetype', 'conf')
+  end,
+})
+
 api.nvim_create_autocmd('TextYankPost', {
   group = my_group,
   pattern = '*',
@@ -42,8 +50,13 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 api.nvim_create_autocmd('BufWritePost', {
   group = my_group,
-  pattern = '*.go,*.lua',
+  pattern = '*.go',
   callback = function()
+    if vim.bo.filetype == 'lua' then
+      if vim.fn.expand('%:t'):find('%pspec') then
+        return
+      end
+    end
     require('internal.formatter'):formatter()
   end,
 })

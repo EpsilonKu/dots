@@ -1,22 +1,27 @@
+vim.opt_local.shiftwidth = 4
+vim.opt_local.tabstop = 4
+vim.opt_local.cmdheight = 2 -- more space in the neovim command line for displaying messages
+
 local function jdtls_on_attach()
   require("jdtls.setup").add_commands()
-  require('jdtls').setup_dap({ hotcodereplace = 'auto' })
+  require('jdtls').setup_dap()
   require("jdtls.dap").setup_dap_main_class_configs()
-  --  vim.cmd [[
-  -- 	command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)
-  -- 	command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)
-  -- 	command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()
-  -- 	command! -buffer JdtJol lua require('jdtls').jol()
-  -- 	command! -buffer JdtBytecode lua require('jdtls').javap()
-  -- 	command! -buffer JdtJshell lua require('jdtls').jshell()
-  -- ]]
+  vim.cmd(
+    "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)"
+  )
+  vim.cmd(
+    "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)"
+  )
+  vim.cmd("command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()")
+  -- vim.cmd "command! -buffer JdtJol lua require('jdtls').jol()"
+  vim.cmd("command! -buffer JdtBytecode lua require('jdtls').javap()")
+  -- vim.cmd "command! -buffer JdtJshell lua require('jdtls').jshell()"
 end
 
-if not packer_plugins['nvim-lspconfig'].loaded then
-  vim.cmd([[packadd nvim-lspconfig]])
+if not packer_plugins['nvim-jdtls'].loaded then
   vim.cmd([[packadd nvim-jdtls]])
 end
-local cfg = {}
+local config = {}
 local root_dir = require("jdtls.setup").find_root({
   ".git", "mvnw", "gradlew", "pom.xml"
 })
@@ -27,17 +32,34 @@ local bundles = {
   vim.fn.glob(home ..
     "/.local/bin/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
 }
---[[ local on_init = function(client) -- NOTE: This is for lsp_signature plugin
-    if client.config.settings then
-        client.notify('workspace/didChangeConfiguration',
-                      {settings = client.config.settings})
-    end
-end ]]
-local settings = { java = { contentProvider = { preferred = "fernflower" } } }
+local settings = {
+  java = {
+    contentProvider =
+    {
+      preferred = "fernflower"
+    },
+    format = {
+      enabled = true,
+      onType = true,
+      settings = {
+        url = "/Users/cunderw/.config/nvim/ftplugin/eclipse-java-google-style.xml",
+      },
+    },
+    inlayHints = {
+      parameterNames = {
+        enabled = "all", -- literals, all, none
+      },
+    },
+    references = {
+      includeDecompiledSources = true,
+    },
+  },
+  signatureHelp = { enabled = true },
+}
 
-cfg.init_options = { bundles = bundles }
-cfg.settings = settings
-cfg.cmd = {
+config.init_options = { bundles = bundles }
+config.settings = settings
+config.cmd = {
   'java',
   '-Declipse.application=org.eclipse.jdt.ls.core.id1',
   '-Dosgi.bundles.defaultStartLevel=4',
@@ -54,7 +76,6 @@ cfg.cmd = {
   "-configuration", vim.fn.glob(home .. "/.local/bin/jdtls/config_linux"),
   "-data", workspace_dir,
 }
-cfg.on_attach = jdtls_on_attach
-cfg.root_dir = root_dir
-cfg.filetype = { "java" }
-require("jdtls").start_or_attach(cfg)
+config.on_attach = jdtls_on_attach
+config.root_dir = root_dir
+require("jdtls").start_or_attach(config)

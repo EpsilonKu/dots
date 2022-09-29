@@ -87,10 +87,10 @@ function fmt:new_spawn(opts)
 
   if opts.filetype == 'lua' and opts.contents then
     uv.write(stdin, opts.contents)
-    uv.shutdown(stdin, function()
-      safe_close(stdin)
-    end)
   end
+  uv.shutdown(stdin, function()
+    safe_close(stdin)
+  end)
 end
 
 function fmt:formatter()

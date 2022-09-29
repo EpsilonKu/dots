@@ -1,13 +1,13 @@
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-      and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
+    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 end
 
 --- move to prev/next item in completion menuone
 --- jump to prev/next snippet's placeholder
 _G.smart_tab = function()
-local cmp = require('cmp')
+  local cmp = require('cmp')
   local ok, luasnip = pcall(require, 'luasnip')
   local luasnip_status = false
   if ok then
@@ -36,16 +36,4 @@ _G.smart_shift_tab = function()
   else
     return '<S-Tab>'
   end
-end
-
-_G.enhance_nice_block = function(key)
-  if not packer_plugins['vim-niceblock'].loaded then
-    vim.cmd([[packadd vim-niceblock]])
-  end
-  local map = {
-    I = '<Plug>(niceblock-I)',
-    ['gI'] = '<Plug>(niceblock-gI)',
-    A = '<Plug>(niceblock-A)',
-  }
-  return map[key]
 end

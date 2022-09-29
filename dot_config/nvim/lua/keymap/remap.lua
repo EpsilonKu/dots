@@ -1,8 +1,10 @@
 local keymap = require('core.keymap')
-local nmap = keymap.nmap
+local nmap, imap, cmap, tmap = keymap.nmap, keymap.imap, keymap.cmap, keymap.tmap
 local silent, noremap = keymap.silent, keymap.noremap
+local expr = keymap.expr
 local opts = keymap.new_opts
 local cmd = keymap.cmd
+local wk = require("which-key")
 
 -- noremal remap
 nmap({
@@ -13,56 +15,63 @@ nmap({
   -- yank
   { 'Y', 'y$', opts(noremap) },
   -- buffer jump
-  { ']b', cmd('bp'), opts(noremap) },
+  { ']b', cmd('bn'), opts(noremap) },
   { '[b', cmd('bp'), opts(noremap) },
   -- remove trailing white space
-  -- { '<Leader>t', cmd('TrimTrailingWhitespace'), opts(noremap) },
+  { '<Leader>t', cmd('TrimTrailingWhitespace'), opts(noremap) },
   -- window jump
   { '<C-h>', '<C-w>h', opts(noremap) },
   { '<C-l>', '<C-w>l', opts(noremap) },
-  { '<C-j>', '<C-w>j', opts(noremap) },
-  { '<C-k>', '<C-w>k', opts(noremap) },
+  { '<C-j>', ':bn<CR>', opts(noremap) },
+  { '<C-k>', ':bp<CR>', opts(noremap) },
   -- resize window
   { '<A-[>', cmd('vertical resize -5'), opts(noremap, silent) },
   { '<A-]>', cmd('vertical resize +5'), opts(noremap, silent) },
 })
 
-vim.keymap.set('n', '<Space>ff', '<Cmd>Telescope find_files<CR>', { desc = 'Telescope find files' })
-vim.keymap.set('n', '<Space>fa', '<Cmd>Telescope live_grep<CR>', { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<Space>fb', '<Cmd>Telescope buffers<CR>', { desc = 'Telescope buffers' })
+-- insertmode remap
+imap({
+  { '<C-w>', '<C-[>diwa', opts(noremap) },
+  { '<C-h>', '<Bs>', opts(noremap) },
+  { '<C-d>', '<Del>', opts(noremap) },
+  { '<C-u>', '<C-G>u<C-u>', opts(noremap) },
+  { '<C-b>', '<Left>', opts(noremap) },
+  { '<C-f>', '<Right>', opts(noremap) },
+  -- { '<C-a>', '<Esc>^i', opts(noremap) },
+  -- { '<C-j>', '<Esc>o', opts(noremap) },
+  -- { '<C-k>', '<Esc>O', opts(noremap) },
+  -- { '<C-s>', '<ESC>:w<CR>', opts(noremap) },
+  {
+    '<C-e>',
+    function()
+      return vim.fn.pumvisible() == 1 and '<C-e>' or '<End>'
+    end,
+    opts(expr),
+  },
+})
 
-vim.keymap.set('n', '<Space>pu', '<Cmd>PackerUpdate<CR>', { desc = 'Packer Update' })
-vim.keymap.set('n', '<Space>pi', '<Cmd>PackerInstall<CR>', { desc = 'Packer Install' })
-vim.keymap.set('n', '<Space>pc', '<Cmd>PackerCompile<CR>', { desc = 'Packer Compile' })
+-- commandline remap
+cmap({
+  { '<C-b>', '<Left>', opts(noremap) },
+  { '<C-f>', '<Right>', opts(noremap) },
+  { '<C-a>', '<Home>', opts(noremap) },
+  { '<C-e>', '<End>', opts(noremap) },
+  { '<C-d>', '<Del>', opts(noremap) },
+  { '<C-h>', '<BS>', opts(noremap) },
+})
 
-vim.keymap.set('n', '<Space>ss', '<Cmd>SessionSave<CR>', { desc = 'Session Save' })
-vim.keymap.set('n', '<Space>sl', '<Cmd>SessionLoad<CR>', { desc = 'Session Load' })
+-- tmap({ '<Esc>', [[<C-\><C-n>]], opts(silent) })
 
-vim.keymap.set('n', '<Space>te', '<Cmd>Neotree float toggle<CR>', { desc = 'Tree toggle' })
-vim.keymap.set('n', '<Space>td', '<Cmd>Neotree diagnostics bottom toggle<CR>', { desc = 'Diagnostics toggle' })
-
-vim.keymap.set('n', '<Space>sw', '<Cmd>w<CR>', { desc = 'Save' })
-vim.keymap.set('n', '<Space>sq', '<Cmd>q<CR>', { desc = 'Quit' })
-
-vim.keymap.set('n', '<Space>j', '<Cmd>bp<CR>', { desc = 'Buffer next' })
-vim.keymap.set('n', '<Space>k', '<Cmd>bn<CR>', { desc = 'Buffer prev' })
-vim.keymap.set('n', '<Space>bd', '<Cmd>bd<CR>', { desc = 'Buffer delete' })
-
-vim.keymap.set('v', '<C-c>', '<Plug>(comment_toggle_linewise_visual)', { desc = 'Comment toggle' })
-
--- Dap
-vim.keymap.set('n', '<Space>ds', '<Cmd>lua require"dap".step_over()<CR>', { desc = '  Step Over' })
-vim.keymap.set('n', '<Space>dd', '<Cmd>lua require"dap".step_into()<CR>', { desc = '  Step Into' })
-vim.keymap.set('n', '<Space>do', '<Cmd>lua require"dap".step_out()<CR>', { desc = '  Step Out' })
-vim.keymap.set('n', '<Space>dc', '<Cmd>lua require"dap".continue()<CR>', { desc = '  Continue' })
-vim.keymap.set('n', '<Space>dd', '<Cmd>lua require"dap".close()<CR>', { desc = ' 栗Stop Process' })
-
--- Lsp saga
-vim.keymap.set('n', '<Space>la', '<Cmd>Lspsaga code_action<CR>', { desc = ' Code action' })
-vim.keymap.set('n', '<Space>lf', '<Cmd>Lspsaga lsp_finder<CR>', { desc = ' Lsp finder' })
-vim.keymap.set('n', '<Space>ld', '<Cmd>Lspsaga hover_doc<CR>', { desc = ' Hover doc' })
-vim.keymap.set('n', '<Space>lf', '<Cmd>Lspsaga signature_help<CR>', { desc = ' Signature help' })
-vim.keymap.set('n', '<Space>lr', '<Cmd>Lspsaga rename<CR>', { desc = ' Rename' })
-vim.keymap.set('n', '<Space>lp', '<Cmd>Lspsaga preview_definition<CR>', { desc = ' Preview definition' })
-vim.keymap.set('n', '<Space>lt', '<Cmd>LSoutlineToggle<CR>', { desc = ' Outline' })
-require('keymap.config')
+-- Keybindings
+vim.keymap.set('n', "<A-h>", '<CMD>NavigatorLeft<CR>')
+vim.keymap.set('n', "<A-l>", '<CMD>NavigatorRight<CR>')
+vim.keymap.set('n', "<A-k>", '<CMD>NavigatorUp<CR>')
+vim.keymap.set('n', "<A-j>", '<CMD>NavigatorDown<CR>')
+vim.keymap.set('n', "<A-p>", '<CMD>NavigatorPrevious<CR>')
+wk.register({
+  d = {
+    name = "Debug", -- optional group name
+    e = { ":lua require'dap'.continue()<CR>", "Debug continue" }, -- create a binding with label
+    r = { ":lua require'dap'.toggle_breakpoint()", "Toggle breakpoinst" }, -- additional options for creating the keymap
+  },
+}, { prefix = "<Space>" })
