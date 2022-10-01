@@ -2,6 +2,8 @@ vim.opt_local.shiftwidth = 4
 vim.opt_local.tabstop = 4
 vim.opt_local.cmdheight = 2 -- more space in the neovim command line for displaying messages
 
+vim.cmd [[autocmd BufWritePre *.java lua vim.lsp.buf.formatting_sync()]]
+
 local function jdtls_on_attach()
   require("jdtls.setup").add_commands()
   require('jdtls').setup_dap()
@@ -42,7 +44,7 @@ local settings = {
       enabled = true,
       onType = true,
       settings = {
-        url = "/Users/cunderw/.config/nvim/ftplugin/eclipse-java-google-style.xml",
+        url = home .. ".config/nvim/static/eclipse-java-google-style.xml",
       },
     },
     inlayHints = {

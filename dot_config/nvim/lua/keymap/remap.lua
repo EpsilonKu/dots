@@ -1,7 +1,6 @@
 local keymap = require('core.keymap')
-local nmap, imap, cmap, tmap = keymap.nmap, keymap.imap, keymap.cmap, keymap.tmap
+local nmap, imap, cmap = keymap.nmap, keymap.imap, keymap.cmap
 local silent, noremap = keymap.silent, keymap.noremap
-local expr = keymap.expr
 local opts = keymap.new_opts
 local cmd = keymap.cmd
 local wk = require("which-key")
@@ -12,18 +11,13 @@ nmap({
   { '<C-x>k', cmd('bdelete'), opts(noremap, silent) },
   -- save
   { '<C-s>', cmd('write'), opts(noremap) },
-  -- yank
-  { 'Y', 'y$', opts(noremap) },
-  -- buffer jump
-  { ']b', cmd('bn'), opts(noremap) },
-  { '[b', cmd('bp'), opts(noremap) },
   -- remove trailing white space
   { '<Leader>t', cmd('TrimTrailingWhitespace'), opts(noremap) },
   -- window jump
   { '<C-h>', '<C-w>h', opts(noremap) },
   { '<C-l>', '<C-w>l', opts(noremap) },
-  { '<C-j>', ':bn<CR>', opts(noremap) },
-  { '<C-k>', ':bp<CR>', opts(noremap) },
+  { '<C-k>', ':BufferLineCycleNext<CR>', opts(noremap) },
+  { '<C-j>', ':BufferLineCyclePrev<CR>', opts(noremap) },
   -- resize window
   { '<A-[>', cmd('vertical resize -5'), opts(noremap, silent) },
   { '<A-]>', cmd('vertical resize +5'), opts(noremap, silent) },
@@ -31,23 +25,11 @@ nmap({
 
 -- insertmode remap
 imap({
-  { '<C-w>', '<C-[>diwa', opts(noremap) },
-  { '<C-h>', '<Bs>', opts(noremap) },
-  { '<C-d>', '<Del>', opts(noremap) },
-  { '<C-u>', '<C-G>u<C-u>', opts(noremap) },
-  { '<C-b>', '<Left>', opts(noremap) },
-  { '<C-f>', '<Right>', opts(noremap) },
-  -- { '<C-a>', '<Esc>^i', opts(noremap) },
-  -- { '<C-j>', '<Esc>o', opts(noremap) },
-  -- { '<C-k>', '<Esc>O', opts(noremap) },
-  -- { '<C-s>', '<ESC>:w<CR>', opts(noremap) },
-  {
-    '<C-e>',
-    function()
-      return vim.fn.pumvisible() == 1 and '<C-e>' or '<End>'
-    end,
-    opts(expr),
-  },
+  { '<C-h>', '<left>', opts(noremap) },
+  { '<C-l>', '<right>', opts(noremap) },
+  { '<C-k>', '<up>', opts(noremap) },
+  { '<C-j>', '<down>', opts(noremap) },
+  { '<C-s>', '<ESC>:w<CR>', opts(noremap) },
 })
 
 -- commandline remap
@@ -59,8 +41,6 @@ cmap({
   { '<C-d>', '<Del>', opts(noremap) },
   { '<C-h>', '<BS>', opts(noremap) },
 })
-
--- tmap({ '<Esc>', [[<C-\><C-n>]], opts(silent) })
 
 -- Keybindings
 vim.keymap.set('n', "<A-h>", '<CMD>NavigatorLeft<CR>')
@@ -74,4 +54,8 @@ wk.register({
     e = { ":lua require'dap'.continue()<CR>", "Debug continue" }, -- create a binding with label
     r = { ":lua require'dap'.toggle_breakpoint()", "Toggle breakpoinst" }, -- additional options for creating the keymap
   },
+  w = {
+    name = "Window",
+    d = { ":bd<CR>", "Close window" }
+  }
 }, { prefix = "<Space>" })
