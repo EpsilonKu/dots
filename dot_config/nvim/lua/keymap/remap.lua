@@ -51,7 +51,12 @@ vim.keymap.set('n', "<A-p>", '<CMD>NavigatorPrevious<CR>')
 wk.register({
   d = {
     name = "Debug", -- optional group name
-    e = { ":lua require'dap'.continue()<CR>", "Debug continue" }, -- create a binding with label
+    e = { function()
+      require('jdtls').update_project_config()
+      require 'dap'.continue()
+    end, "Debug run" },
+    c = { ":lua require'dap'.continue()<CR>", "Debug continue" }, -- create a binding with label
+    h = { ":JdtHotReplace<CR>" },
     r = { ":lua require'dap'.toggle_breakpoint()", "Toggle breakpoinst" }, -- additional options for creating the keymap
   },
   w = {
