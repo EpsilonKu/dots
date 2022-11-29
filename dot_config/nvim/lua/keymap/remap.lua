@@ -14,10 +14,10 @@ nmap({
   -- remove trailing white space
   { '<Leader>t', cmd('TrimTrailingWhitespace'), opts(noremap) },
   -- window jump
-  { '<C-h>', '<C-w>h', opts(noremap) },
-  { '<C-l>', '<C-w>l', opts(noremap) },
-  { '<C-k>', ':BufferLineCycleNext<CR>', opts(noremap) },
-  { '<C-j>', ':BufferLineCyclePrev<CR>', opts(noremap) },
+  -- { '<C-h>', '<C-w>h', opts(noremap) },
+  -- { '<C-l>', '<C-w>l', opts(noremap) },
+  { '<C-k>', ':bn<CR>', opts(noremap) },
+  { '<C-j>', ':bp<CR>', opts(noremap) },
   -- resize window
   { '<A-[>', cmd('vertical resize -5'), opts(noremap, silent) },
   { '<A-]>', cmd('vertical resize +5'), opts(noremap, silent) },
@@ -42,7 +42,7 @@ cmap({
   { '<C-h>', '<BS>', opts(noremap) },
 })
 
--- Keybindings
+-- KeybindingsCompetiTestAdd
 vim.keymap.set('n', "<A-h>", '<CMD>NavigatorLeft<CR>')
 vim.keymap.set('n', "<A-l>", '<CMD>NavigatorRight<CR>')
 vim.keymap.set('n', "<A-k>", '<CMD>NavigatorUp<CR>')
@@ -52,15 +52,24 @@ wk.register({
   d = {
     name = "Debug", -- optional group name
     e = { function()
-      require('jdtls').update_project_config()
       require 'dap'.continue()
     end, "Debug run" },
-    c = { ":lua require'dap'.continue()<CR>", "Debug continue" }, -- create a binding with label
+    c = { ":lua require('jdtls').update_project_config()<CR>", "Debug continue" }, -- create a binding with label
     h = { ":JdtHotReplace<CR>" },
-    r = { ":lua require'dap'.toggle_breakpoint()", "Toggle breakpoinst" }, -- additional options for creating the keymap
+    r = { ":lua require'dap'.toggle_breakpoint()<CR>", "Toggle breakpoinst" }, -- additional options for creating the keymap
+  },
+  c = {
+    r = { ":w<CR>:CompetiTestRun<CR>", " Run test" },
+    d = { ":CompetiTestDelete<CR>", "﯊ Delete test" },
+    e = { ":CompetiTestEdit<CR>", " Edit test" },
+    a = { ":CompetiTestAdd<CR>", " Add test" },
+    w = { ":w<CR>:RunCode<CR>", " Compile and Run" }
   },
   w = {
     name = "Window",
-    d = { ":bd<CR>", "Close window" }
+    d = { function()
+      local cBuf = vim.current.buffer;
+
+    end, "Close window" }
   }
 }, { prefix = "<Space>" })

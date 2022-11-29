@@ -1,1 +1,3 @@
-vim.cmd [[autocmd BufWritePre *.lua lua vim.lsp.buf.formatting_sync()]]
+vim.cmd [[
+    autocmd BufWritePre *.lua lua vim.lsp.buf.format({ async = false })
+]]
