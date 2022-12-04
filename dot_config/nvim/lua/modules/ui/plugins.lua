@@ -1,7 +1,7 @@
 local package = require('core.pack').package
 local conf = require('modules.ui.config')
 
-package({ '~/Projects/kimbox', config = conf.kimbox })
+package({ 'lmburns/kimbox', config = conf.kimbox })
 
 package({ 'goolord/alpha-nvim', config = conf.alpha })
 

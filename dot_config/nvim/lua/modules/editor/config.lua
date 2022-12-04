@@ -19,8 +19,6 @@ function config.telescope()
       qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
     },
   })
-  require('telescope').load_extension('dotfiles')
-  require('telescope').load_extension('gosource')
 end
 
 function config.nvim_treesitter()

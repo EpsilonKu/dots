@@ -7,11 +7,11 @@ local cmd = keymap.cmd
 local home = os.getenv('HOME')
 require('keymap.config')
 
-imap({
-  -- tab key
-  { '<TAB>', _G.smart_tab, opts(expr, silent, remap) },
-  { '<S-TAB>', _G.smart_shift_tab, opts(expr, silent, remap) },
-})
+-- imap({
+--   -- tab key
+--   { '<TAB>', _G.smart_tab, opts(expr, silent, remap) },
+--   { '<S-TAB>', _G.smart_shift_tab, opts(expr, silent, remap) },
+-- })
 
 nmap({
   -- packer
@@ -45,12 +45,9 @@ nmap({
   { '<Leader>b', cmd('Telescope buffers'), opts(noremap, silent) },
   { '<Leader>fa', cmd('Telescope live_grep'), opts(noremap, silent) },
   { '<Leader>fb', cmd('Telescope file_browser'), opts(noremap, silent) },
-  { '<Leader>fd', cmd('Telescope dotfiles'), opts(noremap, silent) },
   { '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },
-  { '<Leader>fg', cmd('Telescope gif_files'), opts(noremap, silent) },
   { '<Leader>fw', cmd('Telescope grep_string'), opts(noremap, silent) },
   { '<Leader>fh', cmd('Telescope help_tags'), opts(noremap, silent) },
-  { '<Leader>fo', cmd('Telescope oldfiles'), opts(noremap, silent) },
   { '<Leader>gc', cmd('Telescope git_commits'), opts(noremap, silent) },
   { '<Leader>gc', cmd('Telescope dotfiles path' .. home .. '/.dotfiles'), opts(noremap, silent) },
   -- vim-operator-surround
