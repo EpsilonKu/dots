@@ -59,21 +59,6 @@ opt.foldlevelstart = 99
 opt.ruler = false
 opt.list = true
 opt.showtabline = 0
--- opt.winwidth = 30
--- opt.winminwidth = 10
--- opt.pumheight = 15
--- opt.helpheight = 12
--- opt.previewheight = 12
--- opt.showcmd = false
--- just for nightly
--- opt.cmdheight = 0
--- opt.equalalways = false
--- opt.laststatus = 3
--- opt.display = 'lastline'
--- opt.showbreak = '↳  '
--- opt.listchars = 'tab:»·,nbsp:+,trail:·,extends:→,precedes:←'
--- opt.pumblend = 10
--- opt.winblend = 10
 
 opt.undofile = true
 opt.synmaxcol = 2500
@@ -92,22 +77,3 @@ opt.colorcolumn = '100'
 opt.foldenable = true
 opt.signcolumn = 'yes'
 opt.spelloptions = 'camel'
--- opt.conceallevel = 2
--- opt.concealcursor = 'niv'
-
-if vim.loop.os_uname().sysname == 'Darwin' then
-  vim.g.clipboard = {
-    name = 'macOS-clipboard',
-    copy = {
-      ['+'] = 'pbcopy',
-      ['*'] = 'pbcopy',
-    },
-    paste = {
-      ['+'] = 'pbpaste',
-      ['*'] = 'pbpaste',
-    },
-    cache_enabled = 0,
-  }
-  vim.g.python_host_prog = '/usr/bin/python'
-  vim.g.python3_host_prog = '/usr/local/bin/python3'
-end
