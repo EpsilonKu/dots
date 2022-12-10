@@ -13,42 +13,42 @@ local client = client
 
 -- limit a string by a length and put ... at the final if the
 -- `max_length` is exceded `str`
-function helpers.limit_by_length (str, max_length, use_pango)
-    local sufix = ''
-    local toput = '...'
+function helpers.limit_by_length(str, max_length, use_pango)
+  local sufix = ''
+  local toput = '...'
 
-    if #str > max_length - #toput then
-        str = string.sub(str, 1, max_length - 3)
-        sufix = toput
-    end
+  if #str > max_length - #toput then
+    str = string.sub(str, 1, max_length - 3)
+    sufix = toput
+  end
 
-    if use_pango and sufix == toput then
-        sufix = helpers.colorize_text(sufix, beautiful.light_black)
-    end
+  if use_pango and sufix == toput then
+    sufix = helpers.colorize_text(sufix, beautiful.light_black)
+  end
 
-    return str .. sufix
+  return str .. sufix
 end
 
 -- capitalize a string
-function helpers.capitalize (txt)
-    return string.upper(string.sub(txt, 1, 1))
-        .. string.sub(txt, 2, #txt)
+function helpers.capitalize(txt)
+  return string.upper(string.sub(txt, 1, 1))
+      .. string.sub(txt, 2, #txt)
 end
 
 -- a fully capitalizing helper.
-function helpers.complex_capitalizing (s)
-    local r, i = '', 0
-    for w in s:gsub('-', ' '):gmatch('%S+') do
-        local cs = helpers.capitalize(w)
-        if i == 0 then
-            r = cs
-        else
-            r = r .. ' ' .. cs
-        end
-        i = i + 1
+function helpers.complex_capitalizing(s)
+  local r, i = '', 0
+  for w in s:gsub('-', ' '):gmatch('%S+') do
+    local cs = helpers.capitalize(w)
+    if i == 0 then
+      r = cs
+    else
+      r = r .. ' ' .. cs
     end
+    i = i + 1
+  end
 
-    return r
+  return r
 end
 
 function helpers.contains(_table, _c)
@@ -62,6 +62,7 @@ end
 
 function helpers.find(rule)
   local function matcher(c) return awful.rules.match(c, rule) end
+
   local clients = client.get()
   local findex = gears.table.hasitem(clients, client.focus) or 1
   local start = gears.math.cycle(#clients, findex + 1)
@@ -108,8 +109,8 @@ function helpers.solid_rectangle_shadow(x_offset, y_offset)
     -- This leaves 2 possibilities, "hole" at top-left or top-right.
 
     -- Gather the main rectangle geometry.
-    local rect1 = {x0=0, y0=0, x1=w, y1=h}
-    local rect2 = {x0=x_offset, y0=y_offset, x1=w + x_offset, y1=h + y_offset}
+    local rect1 = { x0 = 0, y0 = 0, x1 = w, y1 = h }
+    local rect2 = { x0 = x_offset, y0 = y_offset, x1 = w + x_offset, y1 = h + y_offset }
 
     -- Normalize (shift) to {0, 0} -> {w, h}
     if x_offset < 0 then
@@ -151,7 +152,6 @@ function helpers.solid_rectangle_shadow(x_offset, y_offset)
     end
   end
 end
-
 
 -- Resize gaps on the fly
 
@@ -215,7 +215,7 @@ end
 helpers.prrect = function(radius, tl, tr, br, bl)
   return function(cr, width, height)
     gears.shape.partially_rounded_rect(cr, width, height, tl, tr, br, bl,
-    radius)
+      radius)
   end
 end
 
@@ -245,7 +245,7 @@ function helpers.client_menu_toggle()
       instance:hide()
       instance = nil
     else
-      instance = awful.menu.clients({theme = {width = dpi(250)}})
+      instance = awful.menu.clients({ theme = { width = dpi(250) } })
     end
   end
 end
@@ -255,7 +255,7 @@ end
 -- https://github.com/kernelsauce/turbo/blob/master/turbo/escape.lua
 function helpers.pango_escape(s)
   return (string.gsub(s, "[&<>]",
-  {["&"] = "&amp;", ["<"] = "&lt;", [">"] = "&gt;"}))
+    { ["&"] = "&amp;", ["<"] = "&lt;", [">"] = "&gt;" }))
 end
 
 function helpers.vertical_pad(height)
@@ -350,7 +350,7 @@ end
 -- instead of following it.
 -- Rofi has access to the X window id of the client.
 function helpers.rofi_move_client_here(window)
-  local win = function(c) return awful.rules.match(c, {window = window}) end
+  local win = function(c) return awful.rules.match(c, { window = window }) end
 
   for c in awful.client.iterate(win) do
     c.minimized = false
@@ -400,7 +400,7 @@ function helpers.tag_back_and_forth(tag_index)
     end
 
     local urgent_clients = function(c)
-      return awful.rules.match(c, {urgent = true, first_tag = tag})
+      return awful.rules.match(c, { urgent = true, first_tag = tag })
     end
 
     for c in awful.client.iterate(urgent_clients) do
@@ -418,7 +418,7 @@ local tiling_resize_factor = 0.05
 ---------------
 function helpers.resize_dwim(c, direction)
   if awful.layout.get(mouse.screen) == awful.layout.suit.floating or
-    (c and c.floating) then
+      (c and c.floating) then
     if direction == "up" then
       c:relative_move(0, 0, 0, -floating_resize_amount)
     elseif direction == "down" then
@@ -445,21 +445,21 @@ end
 function helpers.move_to_edge(c, direction)
   local workarea = awful.screen.focused().workarea
   if direction == "up" then
-    c:geometry({nil, y = workarea.y + beautiful.useless_gap * 2, nil, nil})
+    c:geometry({ nil, y = workarea.y + beautiful.useless_gap * 2, nil, nil })
   elseif direction == "down" then
     c:geometry({
       nil,
       y = workarea.height + workarea.y - c:geometry().height -
-      beautiful.useless_gap * 2 - beautiful.border_width * 2,
+          beautiful.useless_gap * 2 - beautiful.border_width * 2,
       nil,
       nil
     })
   elseif direction == "left" then
-    c:geometry({x = workarea.x + beautiful.useless_gap * 2, nil, nil, nil})
+    c:geometry({ x = workarea.x + beautiful.useless_gap * 2, nil, nil, nil })
   elseif direction == "right" then
     c:geometry({
       x = workarea.width + workarea.x - c:geometry().width -
-      beautiful.useless_gap * 2 - beautiful.border_width * 2,
+          beautiful.useless_gap * 2 - beautiful.border_width * 2,
       nil,
       nil,
       nil
@@ -473,7 +473,7 @@ end
 -- Else swap client by direction
 function helpers.move_client_dwim(c, direction)
   if c.floating or
-    (awful.layout.get(mouse.screen) == awful.layout.suit.floating) then
+      (awful.layout.get(mouse.screen) == awful.layout.suit.floating) then
     helpers.move_to_edge(c, direction)
   elseif awful.layout.get(mouse.screen) == awful.layout.suit.max then
     if direction == "up" or direction == "left" then
@@ -491,13 +491,13 @@ function helpers.float_and_edge_snap(c, direction)
   -- if not c.floating then
   --     c.floating = true
   -- end
-  naughty.notify({text = "double tap"})
+  naughty.notify({ text = "double tap" })
   c.floating = true
   local workarea = awful.screen.focused().workarea
   if direction == "up" then
     local axis = 'horizontally'
     local f = awful.placement.scale + awful.placement.top +
-    (axis and awful.placement['maximize_' .. axis] or nil)
+        (axis and awful.placement['maximize_' .. axis] or nil)
     local geo = f(client.focus, {
       honor_padding = true,
       honor_workarea = true,
@@ -506,7 +506,7 @@ function helpers.float_and_edge_snap(c, direction)
   elseif direction == "down" then
     local axis = 'horizontally'
     local f = awful.placement.scale + awful.placement.bottom +
-    (axis and awful.placement['maximize_' .. axis] or nil)
+        (axis and awful.placement['maximize_' .. axis] or nil)
     local geo = f(client.focus, {
       honor_padding = true,
       honor_workarea = true,
@@ -515,7 +515,7 @@ function helpers.float_and_edge_snap(c, direction)
   elseif direction == "left" then
     local axis = 'vertically'
     local f = awful.placement.scale + awful.placement.left +
-    (axis and awful.placement['maximize_' .. axis] or nil)
+        (axis and awful.placement['maximize_' .. axis] or nil)
     local geo = f(client.focus, {
       honor_padding = true,
       honor_workarea = true,
@@ -524,7 +524,7 @@ function helpers.float_and_edge_snap(c, direction)
   elseif direction == "right" then
     local axis = 'vertically'
     local f = awful.placement.scale + awful.placement.right +
-    (axis and awful.placement['maximize_' .. axis] or nil)
+        (axis and awful.placement['maximize_' .. axis] or nil)
     local geo = f(client.focus, {
       honor_padding = true,
       honor_workarea = true,
@@ -576,7 +576,7 @@ end
 function helpers.float_and_resize(c, width, height)
   c.width = width
   c.height = height
-  awful.placement.centered(c, {honor_workarea = true, honor_padding = true})
+  awful.placement.centered(c, { honor_workarea = true, honor_padding = true })
   awful.client.property.set(c, 'floating_geometry', c:geometry())
   c.floating = true
   c:raise()
