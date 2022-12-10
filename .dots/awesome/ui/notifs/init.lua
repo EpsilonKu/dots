@@ -1,4 +1,5 @@
 local naughty = require("naughty")
+
 local beautiful = require("beautiful")
 local gears = require("gears")
 local wibox = require("wibox")
@@ -28,7 +29,7 @@ naughty.config.defaults.ontop = true
 naughty.config.defaults.screen = awful.screen.focused()
 naughty.config.defaults.timeout = 3
 naughty.config.defaults.title = "System Notification"
-naughty.config.defaults.position = "bottom_right"
+naughty.config.defaults.position = "top_right"
 
 -- Timeouts
 naughty.config.presets.low.timeout = 3
@@ -83,7 +84,7 @@ naughty.connect_signal("request::display", function(n)
             right = dpi(6),
             widget = wibox.container.margin
         },
-        bg = beautiful.xcolor0,
+        bg = beautiful.lighter_bg,
         forced_height = dpi(25),
         forced_width = dpi(20),
         shape = helpers.rrect(dpi(4)),
@@ -147,7 +148,12 @@ naughty.connect_signal("request::display", function(n)
                             bottom = dpi(5),
                             widget = wibox.container.margin
                         },
-                        bg = beautiful.lighter_bg,
+                        bg = beautiful.darker_bg,
+                        widget = wibox.container.background
+                    },
+                    {
+                        bg = beautiful.xcolor0,
+                        forced_height = dpi(1),
                         widget = wibox.container.background
                     },
                     {
@@ -193,7 +199,6 @@ naughty.connect_signal("request::display", function(n)
                         },
                         {
                             {
-                                nil,
                                 {
                                     {
                                         image = n.icon,
@@ -206,9 +211,8 @@ naughty.connect_signal("request::display", function(n)
                                     height = 40,
                                     widget = wibox.container.constraint
                                 },
-                                nil,
-                                expand = "none",
-                                layout = wibox.layout.align.vertical
+                                valign = "center",
+                                widget = wibox.container.place
                             },
                             top = dpi(0),
                             left = dpi(10),
@@ -231,9 +235,9 @@ naughty.connect_signal("request::display", function(n)
                 widget = wibox.container.margin
             },
             bg = beautiful.darker_bg,
-            border_width = 0,
+            border_width = beautiful.widget_border_width,
             border_color = beautiful.widget_border_color,
-            shape = helpers.rrect(beautiful.border_radius * 0),
+            shape = helpers.rrect(beautiful.border_radius),
             widget = wibox.container.background
         }
     }

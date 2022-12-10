@@ -6,15 +6,14 @@ local beautiful = require("beautiful")
 require("configuration.autostart")
 
 -- Default Applications
-terminal = "gnome-terminal"
-editor = "nvim"
--- editor_cmd = terminal .. " start " .. os.getenv("EDITOR")
-editor_cmd = "nvim"
-browser = "google-chrome-stable"
+terminal = "wezterm"
+editor = "neovide"
+editor_cmd = editor
+browser = "firefox"
 filemanager = "nautilus"
-discord = "discord"
+discord = "webcord"
 launcher = "rofi -show drun"
-music = terminal .. " start --class music ncspot"
+music = terminal .. " start ncmpcpp --class music"
 emoji_launcher = "rofi -show emoji"
 
 -- Global Vars
@@ -35,15 +34,43 @@ ctrl = "Control"
 screen.connect_signal("request::wallpaper", function(s)
     awful.wallpaper {
         screen = s,
-        bg = beautiful.lighter_bg
-        --[[ widget = {
-         horizontal_fit_policy = "fit",
-         vertical_fit_policy   = "fit",
-         image                 = beautiful.wallpaper,
-         widget                = wibox.widget.imagebox,
-        },]] --
+        -- bg = beautiful.lighter_bg
+        widget = {
+            horizontal_fit_policy = "fit",
+            vertical_fit_policy = "fit",
+            image = beautiful.wallpaper,
+            widget = wibox.widget.imagebox
+        }
     }
 end)
+
+--[[
+-- Load the module
+local awesome_wallpaper = require("module.awesome-wallpaper")
+
+-- Create the wallpaper instance and set your options
+local wallpaper = awesome_wallpaper {
+
+    -- These are all the options available and the default values
+    
+    -- The background color of the wallpaper
+    background_color = beautiful.xbackground,
+    -- The colors of the letters in order
+    letter_colors = {
+        beautiful.xcolor1, beautiful.xcolor2, beautiful.xcolor3, beautiful.xcolor4, beautiful.xcolor5, beautiful.xcolor6,
+        beautiful.xcolor7, beautiful.xcolor8, beautiful.xcolor8
+    },
+    -- The font size
+    font_size = 50,
+    -- If the letters should be colored in or not
+    solid_letters = true,
+    -- Letter spacing
+    spacing = 15
+}
+
+-- Draw the wallpaper
+wallpaper:draw_wallpaper()
+]]--
 
 -- Get Bling Config
 require("configuration.bling")

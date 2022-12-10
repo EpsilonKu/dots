@@ -31,6 +31,7 @@ local user_preferences = {
 local create_save_directory = function()
 	local create_dir_cmd = [[
 	dir="]] .. user_preferences.save_directory .. [["
+
 	if [ ! -d "$dir" ]; then
 		mkdir -p "$dir"
 	fi
@@ -119,6 +120,7 @@ local ffmpeg_start_recording = function(audio, filename)
 	ffmpeg_pid = awful.spawn.easy_async_with_shell(
 		[[		
 		file_name=]] .. filename .. [[
+
 		ffmpeg -video_size ]] .. user_preferences.resolution .. [[ -framerate ]] .. user_preferences.fps .. [[ -f x11grab \
 		-i :0.0+]] .. user_preferences.offset .. ' ' .. add_audio_str .. [[ -c:v libx264 -crf 20 -profile:v baseline -level 3.0 -pix_fmt yuv420p $file_name
 		]], 
@@ -145,6 +147,7 @@ local create_unique_filename = function(audio)
 		dir="]] .. user_preferences.save_directory .. [["
 		date=$(date '+%Y-%m-%d_%H-%M-%S')
 		format=.mp4
+
 		echo "${dir}${date}${format}" | tr -d '\n'
 		]],
 		function(stdout)

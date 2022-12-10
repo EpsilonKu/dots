@@ -15,10 +15,8 @@ local helpers = require("helpers")
 -- Inherit default theme
 --
 local theme = dofile(themes_path .. "default/theme.lua")
-theme.wallpaper = gfs.get_configuration_dir() .. "images/bg.png"
-theme.wallpaper_blur = gfs.get_configuration_dir() .. "images/bg_blur.png"
-
-theme.icon_theme = "Papirus-Dark"
+theme.wallpaper = "/etc/nixos/assets/wall.jpg"
+theme.icon_theme = "/usr/share/icons/Awaita"
 
 -- Titlebar icon path
 --
@@ -27,12 +25,12 @@ local icon_path = gfs.get_configuration_dir() .. "icons/"
 -- PFP
 --
 theme.me = gears.surface.load_uncached(gfs.get_configuration_dir() ..
-                                           "images/me.png")
+  "images/me.png")
 
 -- Distro Logo
 --
 theme.distro_logo = gears.surface.load_uncached(
-                        gfs.get_configuration_dir() .. "images/distro.png")
+  gfs.get_configuration_dir() .. "images/distro.png")
 
 -- Icons for Notif Center
 --
@@ -44,8 +42,8 @@ theme.delete_grey_icon = icon_path .. "notif-center/delete_grey.png"
 
 -- Load ~/.Xresources colors and set fallback colors
 --
-theme.darker_bg = "#10171e"
-theme.lighter_bg = "#1f272e"
+theme.darker_bg = "#13171b"
+theme.lighter_bg = "#21262e"
 theme.xbackground = xrdb.background or "#131a21"
 theme.xforeground = xrdb.foreground or "#ffffff"
 theme.xcolor0 = xrdb.color0 or "#29343d"
@@ -67,11 +65,11 @@ theme.xcolor15 = xrdb.color15 or "#eaeaea"
 
 -- Fonts
 --
-theme.font_name = "CaskaydiaCove Nerd Font Mono "
-theme.font = theme.font_name .. "12"
-theme.icon_font_name = "CaskaydiaCove Nerd Font Mono "
-theme.icon_font = theme.icon_font_name .. "14"
-theme.font_taglist = theme.icon_font_name .. "12"
+theme.font_name = "sans-serif "
+theme.font = theme.font_name .. "8"
+theme.icon_font_name = "monospace "
+theme.icon_font = theme.icon_font_name .. "18"
+theme.font_taglist = theme.icon_font_name .. "8"
 
 -- Background Colors
 --
@@ -92,11 +90,11 @@ theme.button_close = theme.xcolor1
 
 -- Borders
 --
-theme.border_width = dpi(0)
+theme.border_width = dpi(1)
 theme.oof_border_width = dpi(0)
 theme.border_normal = theme.darker_bg
-theme.border_focus = theme.darker_bg
-theme.border_radius = dpi(6)
+theme.border_focus = theme.xcolor4
+theme.border_radius = dpi(8)
 theme.client_radius = dpi(12)
 theme.widget_border_width = dpi(2)
 theme.widget_border_color = theme.darker_bg
@@ -106,28 +104,28 @@ theme.widget_border_color = theme.darker_bg
 -- Generate taglist squares:
 local taglist_square_size = dpi(0)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
-                                taglist_square_size, theme.fg_normal)
+  taglist_square_size, theme.fg_normal)
 theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
-                                  taglist_square_size, theme.fg_normal)
+  taglist_square_size, theme.fg_normal)
 theme.taglist_font = theme.font_taglist
-theme.taglist_bg = theme.lighter_bg
+theme.taglist_bg = theme.wibar_bg
 theme.taglist_bg_focus = theme.lighter_bg
 theme.taglist_fg_focus = theme.xcolor4
-theme.taglist_bg_urgent = theme.lighter_bg
+theme.taglist_bg_urgent = theme.xcolor1 .. '55'
 theme.taglist_fg_urgent = theme.xcolor1
 theme.taglist_bg_occupied = theme.wibar_bg
-theme.taglist_fg_occupied = theme.xforeground
-theme.taglist_bg_empty = theme.lighter_bg
-theme.taglist_fg_empty = theme.xforeground
+theme.taglist_fg_occupied = theme.xcolor4
+theme.taglist_bg_empty = theme.wibar_bg
+theme.taglist_fg_empty = theme.lighter_bg
 theme.taglist_bg_volatile = transparent
 theme.taglist_fg_volatile = theme.xcolor11
 theme.taglist_disable_icon = true
 
-theme.taglist_shape_focus = helpers.rrect(theme.border_radius)
-theme.taglist_shape_empty = helpers.rrect(theme.border_radius)
-theme.taglist_shape = helpers.rrect(theme.border_radius)
-theme.taglist_shape_urgent = helpers.rrect(theme.border_radius)
-theme.taglist_shape_volatile = helpers.rrect(theme.border_radius)
+theme.taglist_shape_focus = gears.shape.rectangle
+theme.taglist_shape_empty = gears.shape.rectangle
+theme.taglist_shape = gears.shape.rectangle
+theme.taglist_shape_urgent = gears.shape.rectangle
+theme.taglist_shape_volatile = gears.shape.rectangle
 
 
 -- Tasklist
@@ -156,7 +154,7 @@ theme.titlebar_fg_focus = theme.xforeground
 
 -- Edge snap
 --
-theme.snap_bg = theme.xcolor8
+theme.snap_bg = theme.xcolor15
 theme.snap_shape = helpers.rrect(0)
 
 -- Prompts
@@ -181,7 +179,7 @@ theme.menu_fg_focus = theme.xcolor7
 theme.menu_bg_normal = theme.xbackground
 theme.menu_fg_normal = theme.xcolor7
 theme.menu_submenu_icon = gears.filesystem.get_configuration_dir() ..
-                              "theme/icons/submenu.png"
+    "theme/icons/submenu.png"
 theme.menu_height = dpi(20)
 theme.menu_width = dpi(130)
 theme.menu_border_color = theme.xcolor8
@@ -207,6 +205,7 @@ theme = theme_assets.recolor_layout(theme, theme.xforeground)
 -- Gaps
 --
 theme.useless_gap = dpi(10)
+theme.gap_single_client = false
 
 -- Exit Screen
 --
@@ -215,7 +214,7 @@ theme.exit_screen_bg = theme.xcolor0 .. "80"
 
 -- Wibar
 --
-theme.wibar_height = dpi(42)
+theme.wibar_height = dpi(38)
 theme.wibar_width = dpi(46)
 theme.panel_width = dpi(400)
 theme.wibar_margin = dpi(15)
@@ -226,7 +225,7 @@ theme.wibar_position = "top"
 
 -- Systray
 --
-theme.systray_icon_spacing = dpi(15)
+theme.systray_icon_spacing = dpi(10)
 theme.bg_systray = theme.darker_bg
 theme.systray_icon_size = dpi(15)
 theme.systray_max_rows = 1
@@ -290,7 +289,7 @@ theme.notification_border_width = dpi(0)
 -- Swallowing
 --
 theme.dont_swallow_classname_list = {
-    "firefox", "gimp", "Google-chrome", "Thunar"
+  "firefox", "gimp", "Google-chrome", "Thunar"
 }
 
 -- Calendar
@@ -335,5 +334,32 @@ theme.control_center_button_bg = theme.lighter_bg
 theme.control_center_widget_radius = theme.border_radius
 theme.accent = theme.xcolor8
 theme.hover_effect = theme.xcolor0
+
+-- window switcher
+theme.window_switcher_widget_bg = theme.exit_screen_bg -- The bg color of the widget
+theme.window_switcher_widget_border_width = theme.border_width -- The border width of the widget
+theme.window_switcher_widget_border_radius = theme.widget_border_radius -- The border radius of the widget
+theme.window_switcher_widget_border_color = theme.xbg -- The border color of the widget
+theme.window_switcher_clients_spacing = 15 -- The space between each client item
+theme.window_switcher_client_icon_horizontal_spacing = 5 -- The space between client icon and text
+theme.window_switcher_client_width = 150 -- The width of one client widget
+theme.window_switcher_client_height = 250 -- The height of one client widget
+theme.window_switcher_client_margins = 20 -- The margin between the content and the border of the widget
+theme.window_switcher_thumbnail_margins = 10 -- The margin between one client thumbnail and the rest of the widget
+theme.thumbnail_scale = false -- If set to true, the thumbnails fit policy will be set to "fit" instead of "auto"
+theme.window_switcher_name_margins = 10 -- The margin of one clients title to the rest of the widget
+theme.window_switcher_name_valign = "center" -- How to vertically align one clients title
+theme.window_switcher_name_forced_width = 200 -- The width of one title
+theme.window_switcher_name_font = "Sans 11" -- The font of all titles
+theme.window_switcher_name_normal_color = theme.xfg -- The color of one title if the client is unfocused
+theme.window_switcher_name_focus_color = theme.xcolor1 -- The color of one title if the client is focused
+theme.window_switcher_icon_valign = "center" -- How to vertially align the one icon
+theme.window_switcher_icon_width = 40 -- Thw width of one icon
+
+-- Snip for screenshot
+theme.screenshot_frame_color = theme.xcolor6
+
+theme.btnsize = 16
+theme.iconsize = 20
 
 return theme

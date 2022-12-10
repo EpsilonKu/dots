@@ -1,6 +1,5 @@
 local awful = require("awful")
 local gears = require("gears")
-local gfs = gears.filesystem
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
@@ -9,27 +8,12 @@ local helpers = require("helpers")
 -- Bling Module
 local bling = require("module.bling")
 
--- Layout Machi
--- local machi = require("module.layout-machi")
--- beautiful.layout_machi = machi.get_icon()
-
--- This is to slave windows' positions in floating layout
--- Not Mine
--- https://github.com/larkery/awesome/blob/master/savefloats.lua
-require("module.savefloats")
-
 -- Better mouse resizing on tiled
 -- Not mine
 -- https://github.com/larkery/awesome/blob/master/better-resize.lua
 require("module.better-resize")
 
-client.connect_signal("request::manage", function(c)
-    if not c.icon then
-        local i = gears.surface(gfs.get_configuration_dir() ..
-                                    "icons/ghosts/awesome.png")
-        c.icon = i._native
-    end
-
+client.connect_signal("request::manage", function(c, _)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
@@ -39,16 +23,32 @@ client.connect_signal("request::manage", function(c)
         awful.placement.no_offscreen(c)
     end
 
-    -- Give ST and icon
-    if c.class == "st-256color" or c.class == "st-dialog" or c.class ==
-        "st-float" or c.instance == "st-256color" then
-        local new_icon = gears.surface(gfs.get_configuration_dir() ..
-                                           "icons/ghosts/terminal.png")
-        c.icon = new_icon._native
-        --[[  elseif c.class == "discord" or c.instance == "discord" then
-        local new_icon = gears.surface(gfs.get_configuration_dir() ..
-                                           "icons/ghosts/discord.png")
-        c.icon = new_icon._native]] --
+    -- Fallback icon for clients
+    if c.icon == nil then
+        local i = gears.surface(beautiful.theme_assets.awesome_icon(256,
+                                                                    beautiful.xcolor8,
+                                                                    beautiful.darker_bg))
+        c.icon = i._native
+    end
+
+    --[[
+  if c.maximized or c.fullscreen then
+    c.shape = gears.shape.rectangle
+  else
+    c.shape = helpers.rrect(beautiful.border_radius)
+  end
+  --]] 
+end)
+
+-- Disable border when there is only one tiling client
+screen.connect_signal("arrange", function (s)
+    local only_one = #s.tiled_clients == 1
+    for _, c in pairs(s.clients) do
+        if only_one and not c.floating or c.maximized then
+            c.border_width = 0
+        else
+            c.border_width = beautiful.border_width -- your border width
+        end
     end
 end)
 
@@ -70,13 +70,6 @@ local centered = bling.layout.centered
 local horizontal = bling.layout.horizontal
 local equal = bling.layout.equalarea
 local deck = bling.layout.deck
-
--- machi.editor.nested_layouts = {
---     ["0"] = deck,
---     ["1"] = awful.layout.suit.spiral,
---     ["2"] = awful.layout.suit.fair,
---     ["3"] = awful.layout.suit.fair.horizontal
--- }
 
 -- Set the layouts
 
@@ -119,17 +112,17 @@ local ll = awful.widget.layoutlist {
 -- Popup
 local layout_popup = awful.popup {
     widget = wibox.widget {
-        {ll, margins = dpi(24), widget = wibox.container.margin},
-        bg = beautiful.xbackground,
-        shape = helpers.rrect(beautiful.border_radius),
-        border_color = beautiful.widget_border_color,
-        border_width = beautiful.widget_border_width,
-        widget = wibox.container.background
+        ll,
+        margins = dpi(24),
+        widget = wibox.container.margin
     },
     placement = awful.placement.centered,
     ontop = true,
     visible = false,
-    bg = beautiful.bg_normal .. "00"
+    shape = helpers.rrect(beautiful.border_radius),
+    border_color = beautiful.widget_border_color,
+    border_width = beautiful.widget_border_width,
+    bg = beautiful.xbackground
 }
 
 -- Key Bindings for Widget ----------------------------------------------------
@@ -154,28 +147,28 @@ function gears.table.iterate_value(t, value, step_size, filter, start_at)
     return t[new_key], new_key
 end
 
--- awful.keygrabber {NOTE: This is layout pop-up
---     start_callback = function() layout_popup.visible = true end,
---     stop_callback = function() layout_popup.visible = false end,
---     export_keybindings = true,
---     stop_event = "release",
---     stop_key = {"Escape", "Super_L", "Super_R", "Mod4"},
---     keybindings = {
---         {
---             {modkey, "Shift"}, " ", function()
---                 awful.layout.set(gears.table.iterate_value(ll.layouts,
---                                                            ll.current_layout, -1),
---                                  nil)
---             end
---         }, {
---             {modkey}, " ", function()
---                 awful.layout.set(gears.table.iterate_value(ll.layouts,
---                                                            ll.current_layout, 1),
---                                  nil)
---             end
---         }
---     }
--- }
+awful.keygrabber {
+    start_callback = function() layout_popup.visible = true end,
+    stop_callback = function() layout_popup.visible = false end,
+    export_keybindings = true,
+    stop_event = "release",
+    stop_key = {"Escape", "Super_L", "Super_R", "Mod4"},
+    keybindings = {
+        {
+            {modkey, "Shift"}, " ", function()
+                awful.layout.set(gears.table.iterate_value(ll.layouts,
+                                                           ll.current_layout, -1),
+                                 nil)
+            end
+        }, {
+            {modkey}, " ", function()
+                awful.layout.set(gears.table.iterate_value(ll.layouts,
+                                                           ll.current_layout, 1),
+                                 nil)
+            end
+        }
+    }
+}
 
 -- Hide all windows when a splash is shown
 awesome.connect_signal("widgets::splash::visibility", function(vis)

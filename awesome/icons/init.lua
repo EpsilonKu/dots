@@ -1,32 +1,40 @@
---- Icons directory
 local gfs = require("gears.filesystem")
 local dir = gfs.get_configuration_dir() .. "icons/"
 
-return {
-	--- layouts
-	floating = dir .. "layouts/floating.png",
-	max = dir .. "layouts/max.png",
-	tile = dir .. "layouts/tile.png",
-	dwindle = dir .. "layouts/dwindle.png",
-	centered = dir .. "layouts/centered.png",
-	mstab = dir .. "layouts/mstab.png",
-	equalarea = dir .. "layouts/equalarea.png",
-	machi = dir .. "layouts/machi.png",
+icons = {
+  -- window layouts
+  tile       = dir .. "layouts/tile.png",
+  tilebottom = dir .. "layouts/tilebottom.png",
+  centered   = dir .. "layouts/centered.png",
+  mstab      = dir .. "layouts/mstab.png",
+  fairv      = dir .. "layouts/fairv.png",
+  fairh      = dir .. "layouts/fairh.png",
+  floating   = dir .. "layouts/floating.png",
+  max1       = dir .. "layouts/max1.png",
+  max2       = dir .. "layouts/max2.png",
 
-	--- notifications
-	notification = dir .. "notification.svg",
-	notification_bell = dir .. "notification_bell.svg",
+  -- keyboard layouts
+  flag_cz   = dir .. "kblayouts/flag_cz.svg",
+  flag_us   = dir .. "kblayouts/flag_us.svg",
+  flag_de   = dir .. "kblayouts/flag_de.svg",
+  flag_es   = dir .. "kblayouts/flag_es.svg",
+  flag_fr   = dir .. "kblayouts/flag_fr.svg",
+  flag_ru   = dir .. "kblayouts/flag_ru.svg",
+  flag_jp   = dir .. "kblayouts/flag_jp.svg",
+  -- titlebar buttons
+  btn       = dir .. "titlebar/button.svg",
+  closeicon = dir .. "titlebar/closeicon.svg",
+  maxicon   = dir .. "titlebar/maxicon.svg",
+  minicon   = dir .. "titlebar/minicon.svg",
 
-	--- system UI
-	volume = dir .. "volume.svg",
-	brightness = dir .. "brightness.svg",
-	ram = dir .. "ram.svg",
-	cpu = dir .. "cpu.svg",
-	temp = dir .. "temp.svg",
-	disk = dir .. "disk.svg",
-	battery = dir .. "battery.svg",
-	battery_low = dir .. "battery-low.svg",
-	charging = dir .. "charging.svg",
-	web_browser = dir .. "firefox.svg",
-	awesome_logo = dir .. "awesome-logo.svg",
+  -- battery icons
+  charging = dir .. "battery/charging.svg",
 }
+
+-- distro
+icons.distro = dir .. "distros/" .. io.popen("sh -c 'source /etc/os-release; echo $ID'"):read("*l") .. ".svg"
+if gfs.file_readable(icons.distro) ~= true then
+  icons.distro = dir .. "distros/generic.svg"
+end
+
+return icons

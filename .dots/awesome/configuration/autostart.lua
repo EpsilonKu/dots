@@ -4,16 +4,12 @@ local awful = require("awful")
 
 -- Add apps to autostart here
 local autostart_apps = {
-	-- "xset -b", -- Disable bell
-	-- "blueman-applet", -- Bluetooth Systray Applet
-	"nm-applet",
-	"blueman-applet",
-	"picom",
-	-- 'xautolock -time 12 -locker "dm-tool lock"', -- TODO: Auto lock
+  "xset -b", -- Disable bell
+  "blueman-applet", -- Bluetooth Systray Applet
+  "nm-applet"
 }
+nyuu = require("animation.workspace")
 
-for app = 1, #autostart_apps do
-	awful.spawn.single_instance(autostart_apps[app], awful.rules.rules)
-end
+for app = 1, #autostart_apps do awful.spawn(autostart_apps[app], false) end
 
 -- EOF ------------------------------------------------------------------------

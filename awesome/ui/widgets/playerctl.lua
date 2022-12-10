@@ -6,12 +6,11 @@ local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
+local playerctl = require("module.bling").signal.playerctl.lib()
+
 local art = wibox.widget {
     image = gears.filesystem.get_configuration_dir() .. "images/no_music.png",
     resize = true,
-    forced_height = dpi(100),
-    -- forced_width = dpi(80),
-    -- clip_shape = helpers.rrect(beautiful.border_radius - 5),
     widget = wibox.widget.imagebox
 }
 
@@ -32,7 +31,7 @@ local create_button = function(symbol, color, command, playpause)
         widget = wibox.container.background
     }
 
-    awesome.connect_signal("bling::playerctl::status", function(playing)
+    playerctl:connect_signal("playback_status", function(_, playing, _)
         if playpause then
             if playing then
                 icon.markup = helpers.colorize_text("", color)
@@ -74,9 +73,11 @@ local artist_widget = wibox.widget {
     widget = wibox.widget.textbox
 }
 
--- Get Song Info 
-awesome.connect_signal("bling::playerctl::title_artist_album",
-                       function(title, artist, art_path)
+-- Get Song Info
+playerctl:connect_signal("metadata",
+                         function(_, title, artist, art_path, _, _, _)
+    if title == "" then title = "Not Playing" end
+
     -- Set art widget
     art:set_image(gears.surface.load_uncached(art_path))
 
@@ -86,10 +87,9 @@ awesome.connect_signal("bling::playerctl::title_artist_album",
         '<span foreground="' .. beautiful.xcolor6 .. '">' .. artist .. '</span>')
 end)
 
-local play_command =
-    function() awful.spawn.with_shell("playerctl play-pause") end
-local prev_command = function() awful.spawn.with_shell("playerctl previous") end
-local next_command = function() awful.spawn.with_shell("playerctl next") end
+local play_command = function() playerctl:play_pause() end
+local prev_command = function() playerctl:previous() end
+local next_command = function() playerctl:next() end
 
 local playerctl_play_symbol = create_button("", beautiful.xcolor4,
                                             play_command, true)
@@ -110,63 +110,48 @@ local slider = wibox.widget {
     widget = wibox.widget.progressbar
 }
 
-awesome.connect_signal("bling::playerctl::position", function(pos, length)
+playerctl:connect_signal("position", function(_, pos, length, _)
     slider.value = (pos / length) * 100
 end)
 
-local playerctl = wibox.widget {
+local playerctl_wibox = wibox.widget {
     {
-        {
-            art,
-            bg = beautiful.xcolor0,
-            shape = helpers.rrect(beautiful.border_radius),
-            widget = wibox.container.background
-        },
-        left = dpi(0),
-        top = dpi(0),
-        bottom = dpi(0),
-        layout = wibox.container.margin
+        art,
+        bg = beautiful.xcolor0,
+        shape = helpers.rrect(beautiful.border_radius),
+        widget = wibox.container.background
     },
     {
         {
-            {
-                {
-                    title_widget,
-                    artist_widget,
-                    layout = wibox.layout.fixed.vertical
-                },
-                top = 10,
-                left = 25,
-                right = 25,
-                widget = wibox.container.margin
-            },
-            {
-                nil,
-                {
-                    playerctl_prev_symbol,
-                    playerctl_play_symbol,
-                    playerctl_next_symbol,
-                    spacing = dpi(40),
-                    layout = wibox.layout.fixed.horizontal
-                },
-                nil,
-                expand = "none",
-                layout = wibox.layout.align.horizontal
-            },
-            {
-                slider,
-                top = dpi(10),
-                left = dpi(25),
-                right = dpi(25),
-                widget = wibox.container.margin
-            },
-            layout = wibox.layout.align.vertical
+            {title_widget, artist_widget, layout = wibox.layout.fixed.vertical},
+            top = dpi(10),
+            left = dpi(25),
+            right = dpi(25),
+            widget = wibox.container.margin
         },
-        top = dpi(0),
-        bottom = dpi(10),
-        widget = wibox.container.margin
+        {
+            nil,
+            {
+                playerctl_prev_symbol,
+                playerctl_play_symbol,
+                playerctl_next_symbol,
+                spacing = dpi(40),
+                layout = wibox.layout.fixed.horizontal
+            },
+            nil,
+            expand = "none",
+            layout = wibox.layout.align.horizontal
+        },
+        {
+            slider,
+            bottom = dpi(10),
+            left = dpi(25),
+            right = dpi(25),
+            widget = wibox.container.margin
+        },
+        layout = wibox.layout.align.vertical
     },
     layout = wibox.layout.align.horizontal
 }
 
-return playerctl
+return playerctl_wibox

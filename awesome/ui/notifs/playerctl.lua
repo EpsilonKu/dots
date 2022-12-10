@@ -1,6 +1,16 @@
--- local naughty = require("naughty")
---
--- awesome.connect_signal("bling::playerctl::title_artist_album",
---                        function(title, artist, art_path)
---     naughty.notification({title = title, text = artist, image = art_path})
--- end)
+local naughty = require("naughty")
+
+local playerctl = require("module.bling").signal.playerctl.lib()
+
+playerctl:connect_signal("metadata",
+                         function(_, title, artist, album_path, album, new,
+                                  player_name)
+    if new then
+        naughty.notify({
+            title = title,
+            text = artist,
+            app_name = player_name,
+            image = album_path
+        })
+    end
+end)
