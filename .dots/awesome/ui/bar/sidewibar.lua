@@ -8,7 +8,7 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local helpers = require("helpers")
 local rubato = require("module.rubato")
-local battery_widget = require("ui.widgets.battery")
+local battery = require("ui.widgets.battery")
 
 -- Awesome Panel -----------------------------------------------------------
 
@@ -52,16 +52,16 @@ local battery_bar = wibox.widget {
   widget = wibox.widget.progressbar
 }
 
--- local battery_widget = wibox.widget {
---   {
---     battery_bar,
---     direction = "east",
---     forced_height = 100,
---     widget = wibox.container.rotate
---   },
---   battery_icon,
---   layout = wibox.layout.stack
--- }
+local battery_widget = wibox.widget {
+  -- {
+  --   battery_bar,
+  --   direction = "east",
+  --   forced_height = 100,
+  --   widget = wibox.container.rotate
+  -- },
+  battery_icon,
+  layout = wibox.layout.stack
+}
 
 local battery_bar_container = wibox.widget {
   {
@@ -121,11 +121,10 @@ local a_wrapper = wibox.widget {
 }
 
 awesome.connect_signal("signal::battery",
-  function(percentage, state, time_to_empty, time_to_full,
-           battery_level)
+  function(percentage, state, time_to_empty, time_to_full)
     local value = percentage or 10
 
-    local bat_icon = ""
+    local bat_icon = ""
 
     if value >= 0 and value <= 15 then
       bat_icon = ""
@@ -149,25 +148,16 @@ awesome.connect_signal("signal::battery",
       bat_icon = ""
     end
 
-    battery_empty.markup = helpers.colorize_text(
-      "Time till empty: " .. time_to_empty .. " min",
-      beautiful.xcolor15)
-
     -- if charging
-    if state == 1 then
-      bat_icon = ""
+    if state == " Charging" then
+      bat_icon = ""
       battery_empty.markup = helpers.colorize_text(
         "Time till full: " .. time_to_full .. " min",
         beautiful.xcolor15)
-
     end
-
-    battery_icon2.markup = helpers.colorize_text(bat_icon, beautiful.xcolor12)
-    battery_text.markup = helpers.colorize_text(
-      "Battery level: " .. value .. "%",
-      beautiful.xcolor15)
-
-    battery_bar.value = value
+    if state == " Full" then
+      bat_icon = ""
+    end
 
     battery_icon.markup = "<span foreground='" .. beautiful.xcolor12 .. "'>" ..
         bat_icon .. "</span>"
@@ -477,7 +467,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
   -- Remove wibar on full screen
   local function remove_wibar(c)
-    if c.fullscreen or c.maximized then
+    if c.fullscreen then
       c.screen.mywibox.visible = false
     else
       c.screen.mywibox.visible = true
@@ -486,7 +476,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
   -- Remove wibar on full screen
   local function add_wibar(c)
-    if c.fullscreen or c.maximized then
+    if c.fullscreen then
       c.screen.mywibox.visible = true
     end
   end
@@ -525,7 +515,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
       },
       {
         wrap_widget(clock),
-        -- wrap_widget(battery_widget),
+        -- wrap_widget(battery_widget { adapter = "BAT0", ac = "AC" }),
         wrap_widget({
           volume_widget,
           margins = 5,
@@ -539,11 +529,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
           bottom = 5,
           widget = wibox.container.margin
         }),
-        -- wrap_widget({
-        --   battery_widget,
-        --   margins = 5,
-        --   widget = wibox.container.margin
-        -- }),
+        wrap_widget({
+          battery_widget,
+          margins = 5,
+          widget = wibox.container.margin
+        }),
         wrap_widget(awful.widget.only_on_screen({
           sys_button,
           halign = "center",

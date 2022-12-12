@@ -611,8 +611,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
   -- Remove wibar on full screen
   local function add_wibar(c)
-    if c.fullscreen then
-      c.screen.mywibox.visible = false
+    if not c.fullscreen then
+      c.screen.mywibox.visible = true
     end
   end
 
