@@ -1,5 +1,11 @@
 # EpsKu's dots
-The config made by chezmoi. For it's peace of my life(I mean I hate it). If u know how to use chezmoi (especially how to remove files), pls contact me.
+The config made by [`Tomb Bombadil`](https://github.com/oknozor/toml-bombadil).
+![gscreenshot_2022-12-12-083241](https://user-images.githubusercontent.com/63652620/206948705-458e1df1-2cee-4587-b9cd-50d6de015bab.png)
+ 
+## Neovim
+Require font with Nerd Font. Fork of [`Glepnir config`](https://github.com/glepnir/nvim).
+## Awesome wm
+Recommended picom to work properly. Fork of [`Javacafe config`](https://github.com/JavaCafe01/dotfiles).
 
 ## Special thanks for:
 - [`glepnir`](https://github.com/glepnir)
