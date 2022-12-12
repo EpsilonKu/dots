@@ -14,3 +14,4 @@ Recommended picom to work properly. Fork of [`Javacafe config`](https://github.c
 - [`Toe`](https://github.com/Theory-of-Everything)
 - [`Apeiros`](https://github.com/Apeiros-46B/nvim)
 - [`NVChad-nvim`](https://github.com/NvChad/NvChad.git)
+- [`Vermoot`](https://github.com/Vermoot)
