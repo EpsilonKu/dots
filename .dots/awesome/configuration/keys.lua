@@ -84,9 +84,13 @@ awful.keyboard.append_global_keybindings({
     awful.client.focus.bydirection("right")
     bling.module.flash_focus.flashfocus(client.focus)
   end, { description = "focus right", group = "client" }),
-  awful.key({ modkey }, "j", function() awful.client.focus.byidx(1) end,
+  awful.key({ modkey }, "h", function() awful.client.focus.byidx(1) end,
     { description = "focus next by index", group = "client" }),
-  awful.key({ modkey }, "k", function() awful.client.focus.byidx(-1) end,
+  awful.key({ modkey }, "l", function() awful.client.focus.byidx(-1) end,
+    { description = "focus previous by index", group = "client" }),
+  awful.key({ modkey }, "j", function() awful.tag.viewnext() end,
+    { description = "focus next by index", group = "client" }),
+  awful.key({ modkey }, "k", function() awful.tag.viewprev() end,
     { description = "focus previous by index", group = "client" }),
   awful.key({ modkey, "Shift" }, "j", function() awful.client.swap.byidx(1) end,
     { description = "swap with next client by index", group = "client" }),
