@@ -29,7 +29,7 @@ end)
 awful.util.shell = "sh"
 
 -- Initialize Theme
-local theme = "kimbox"
+local theme = "mellow"
 beautiful.init(gfs.get_configuration_dir() .. "theme/" .. theme .. "/theme.lua")
 
 -- Import Configuration
