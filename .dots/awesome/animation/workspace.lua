@@ -4,6 +4,8 @@ local gears     = require("gears")
 local wibox     = require("wibox")
 local cairo     = require("lgi").cairo
 local rubato    = require("module.rubato")
+local gdebug    = require('gears.debug')
+local client    = client
 local helpers   = require("helpers")
 local icons     = require("icons")
 local naughty   = require("naughty")
@@ -39,98 +41,60 @@ awful.screen.connect_for_each_screen(function(s)
 
 end)
 
+function img_draw(c, content, client_list)
+
+  local cr = cairo.Context(content)
+  local x, y, w, h = cr:clip_extents()
+  local img = cairo.ImageSurface.create(
+    cairo.Format.ARGB32,
+    w - x,
+    h - y
+  )
+  cr = cairo.Context(img)
+  cr:set_source_surface(content, 0, 0)
+  cr.operator = cairo.Operator.SOURCE
+  cr:paint()
+
+  local img_box = wibox.widget({
+    image = gears.surface.load(img),
+    resize = true,
+    widget = wibox.widget.imagebox,
+  })
+
+  local client_box = wibox.widget {
+    {
+      {
+        img_box,
+        layout = wibox.layout.fixed.vertical,
+      },
+      widget = wibox.container.margin,
+    },
+    forced_height = c.height,
+    forced_width = c.width,
+    bg = beautiful.bg,
+    widget = wibox.container.background
+  }
+
+  client_box.point = {
+    x = c.x - c.screen.geometry.x,
+    y = c.y - c.screen.geometry.y
+  }
+
+  client_list:add(client_box)
+end
+
 function to_surface(t)
   local client_list = wibox.layout.manual()
-  for _, c in ipairs(t:clients()) do
-    if not c.minimized and not c.hidden then
-      local content
-      if c.first_tag.selected then
-        content = gears.surface(c.content)
+  local focus_history = awful.client.focus.history.list
+  for i = #focus_history, 1, -1 do
+    local c = focus_history[i]
+
+    if not c.minimized and not c.hidden and c.first_tag == t then
+      if t.selected then
+        img_draw(c, gears.surface(c.content), client_list)
       else
-        content = gears.surface(c.prev_content)
+        img_draw(c, gears.surface(c.prev_content), client_list)
       end
-      local cr = cairo.Context(content)
-      local x, y, w, h = cr:clip_extents()
-      local img = cairo.ImageSurface.create(
-        cairo.Format.ARGB32,
-        w - x,
-        h - y
-      )
-      local cr = cairo.Context(img)
-      cr:set_source_surface(content, 0, 0)
-      cr.operator = cairo.Operator.SOURCE
-      cr:paint()
-
-      local img_box = wibox.widget({
-        image = gears.surface.load(img),
-        resize = true,
-        widget = wibox.widget.imagebox,
-      })
-
-      local client_box = wibox.widget {
-        {
-          {
-            {
-              {
-                wibox.widget.imagebox(c.icon),
-                widget = wibox.container.margin,
-                -- margins = {
-                --   top = (24 - beautiful.iconsize) / 2 + 2,
-                --   bottom = (24 - beautiful.iconsize) / 2,
-                --   left = 3,
-                --   right = 3,
-                -- }
-              },
-              {
-                widget = wibox.widget.textbox,
-                align = "center",
-                font = beautiful.bfont,
-                text = c.name
-              },
-              {
-                {
-                  wibox.widget.imagebox(gears.color.recolor_image(icons.btn, beautiful.dfg)),
-                  wibox.widget.imagebox(gears.color.recolor_image(icons.btn, beautiful.dfg)),
-                  wibox.widget.imagebox(gears.color.recolor_image(icons.btn, beautiful.dfg)),
-                  layout = wibox.layout.fixed.horizontal,
-                  spacing = 6,
-                },
-                widget = wibox.container.margin,
-                -- margins = {
-                --   top = (24 - beautiful.btnsize) / 2 + 2,
-                --   bottom = (24 - beautiful.btnsize) / 2,
-                --   left = 3,
-                --   right = 3,
-                -- }
-              },
-              forced_height = 24,
-              layout = wibox.layout.align.horizontal,
-            },
-            img_box,
-            layout = wibox.layout.fixed.vertical,
-          },
-          widget = wibox.container.margin,
-          -- margins = {
-          --   bottom = beautiful.border_radius * 2,
-          --   right = 2,
-          --   left = 2,
-          -- }
-        },
-        forced_height = c.height,
-        forced_width = c.width,
-        bg = beautiful.bg,
-        border_width = beautiful.border_size,
-        border_color = beautiful.border_col_normal,
-        shape = helpers.rrect(beautiful.border_radius),
-        widget = wibox.container.background
-      }
-
-      client_box.point = {
-        x = c.x - c.screen.geometry.x,
-        y = c.y - c.screen.geometry.y
-      }
-
-      client_list:add(client_box)
     end
   end
   return client_list
@@ -139,7 +103,11 @@ end
 function switch_tag(i)
 
   local t1 = awful.screen.focused().selected_tag
-  local t2 = awful.screen.focused().tags[(t1.index + i + 5) % 5 + 1];
+  -- local t2 = awful.screen.focused().tags[(t1.index + i + 4) % 5 + 1];
+  local t2i = t1.index + i
+  if t2i == 7 then t2i = 1
+  elseif t2i == 0 then t2i = 6 end
+  local t2 = awful.screen.focused().tags[t2i]
 
   local s = t1.screen
 
@@ -179,8 +147,8 @@ function switch_tag(i)
   s.nyoom.visible = true
 
   local anim = rubato.timed {
-    duration = 3.0,
-    intro = 0.1,
+    duration = 0.2,
+    intro = 0.0,
     rate = 60,
     pos = transbox.top,
     easing = rubato.linear,

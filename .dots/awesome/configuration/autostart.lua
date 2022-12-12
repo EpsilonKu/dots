@@ -6,7 +6,8 @@ local awful = require("awful")
 local autostart_apps = {
   "xset -b", -- Disable bell
   "blueman-applet", -- Bluetooth Systray Applet
-  "nm-applet"
+  "nm-applet",
+  -- "picom"
 }
 nyuu = require("animation.workspace")
 

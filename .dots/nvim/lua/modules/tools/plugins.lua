@@ -28,6 +28,11 @@ package({
   'numToStr/Navigator.nvim',
   config = conf.navigator
 })
+package({
+  'glepnir/template.nvim',
+  config = conf.template_nvim
+})
+
 -- package({
 --   'folke/noice.nvim',
 --   config = conf.noice,
