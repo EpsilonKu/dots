@@ -263,4 +263,10 @@ function config.competitest()
   ) -- to use default configuration
 end
 
+function config.papis()
+  -- require("papis").setup(
+  -- -- Your configuration goes here
+  -- )
+end
+
 return config

@@ -33,21 +33,6 @@ package({
   config = conf.template_nvim
 })
 
--- package({
---   'folke/noice.nvim',
---   config = conf.noice,
---   -- event = "VmEnter",
---   requires = {
---     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
---     "MunifTanjim/nui.nvim",
---     "rcarriga/nvim-notify",
---   },
---   module = {
---     "nui.nvim",
---     "nvim-notify"
---   }
--- })
-
 package({
   'CRAG666/code_runner.nvim',
   config = conf.code_runner
@@ -55,4 +40,8 @@ package({
 package({
   'xeluxee/competitest.nvim',
   config = conf.competitest
+})
+package({
+  'jghauser/papis.nvim',
+  config = conf.papis
 })

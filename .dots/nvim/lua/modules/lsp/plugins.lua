@@ -9,7 +9,8 @@ package({
   config = conf.nvim_lsp,
 })
 
-package({ 'glepnir/lspsaga.nvim', after = 'nvim-lspconfig', config = conf.lspsaga })
+-- package({ 'glepnir/lspsaga.nvim', after = 'nvim-lspconfig', config = conf.lspsaga })
+package({ 'weilbith/nvim-code-action-menu', config = conf.code_action, cmd = 'CodeActionMenu' })
 
 package({ 'mfussenegger/nvim-dap', after = 'nvim-lspconfig' })
 
@@ -46,3 +47,5 @@ package({ 'L3MON4D3/LuaSnip', event = 'InsertCharPre', config = conf.lua_snip })
 package({ 'windwp/nvim-autopairs', event = 'InsertEnter', config = conf.auto_pairs })
 
 package({ 'mfussenegger/nvim-jdtls', after = 'nvim-dap' })
+
+package({ 'dnlhc/glance.nvim', after = 'nvim-lspconfig', event = 'BufRead', config = conf.glance })

@@ -1,7 +1,59 @@
 local config = {}
 
 function config.kimbox()
-  vim.cmd('colorscheme kimbox')
+  require("kimbox").setup({
+    -- Main options --
+    style = "warmer", -- choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+    -- medium: #231A0C
+    -- ocean: #221A02
+    -- medium: #231A0C
+    -- deep: #0f111B
+    -- darker:#291804
+
+    toggle_style_key = "<Leader>ts",
+    toggle_style_list = require("kimbox").bgs_list, -- or require("kimbox").bgs_list
+
+    -- See below (New Lua Treesitter Highlight Groups) for an explanation
+    langs08 = true,
+
+    -- Used with popup menus (coc.nvim mainly) --
+    popup = {
+      background = false, -- use background color for pmenu
+    },
+
+    -- Plugins Related --
+    diagnostics = {
+      background = true, -- use background color for virtual text
+    },
+
+    -- General formatting --
+    allow_bold = true,
+    allow_italic = false,
+    allow_underline = false,
+    allow_undercurl = true,
+    allow_reverse = false,
+
+    transparent = false, -- don't set background
+    term_colors = true, -- if true enable the terminal
+    ending_tildes = false, -- show the end-of-buffer tildes
+
+
+    -- Custom Highlights --
+    colors = {}, -- Override default colors
+    highlights = {}, -- Override highlight groups
+    -- Plugins or languages that can be disabled
+    -- View them with require("kimbox.highlights").{langs,plugins}
+    disabled = {
+      langs = {},
+      plugins = {},
+      langs08 = {} -- Capture groups only present on nightly release (see below)
+    },
+
+    run_before = nil, -- Run a function before the colorscheme is loaded
+    run_after = nil -- Run a function after the colorscheme is loaded
+  })
+
+  require("kimbox").load()
 end
 
 function config.neo_tree()
