@@ -1,7 +1,8 @@
 # EpsKu's dots
 The config made by [`Tomb Bombadil`](https://github.com/oknozor/toml-bombadil).
-![gscreenshot_2022-12-12-083241](https://user-images.githubusercontent.com/63652620/206948705-458e1df1-2cee-4587-b9cd-50d6de015bab.png)
- 
+
+![gscreenshot_2022-12-14-195133](https://user-images.githubusercontent.com/63652620/207612849-d41c321f-08db-49ad-b24d-2acb68559bf5.png)
+
 ## Neovim
 Require font with Nerd Font. Fork of [`Glepnir config`](https://github.com/glepnir/nvim).
 ## Awesome wm
