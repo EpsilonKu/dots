@@ -11,11 +11,12 @@ local gears = require("gears")
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local helpers = require("helpers")
+local home = os.getenv("HOME")
 
 -- Inherit default theme
 --
 local theme = dofile(themes_path .. "default/theme.lua")
-theme.wallpaper = "/etc/nixos/assets/wall.jpg"
+theme.wallpaper = home .. "/Desktop/Madmax.png"
 theme.icon_theme = "/usr/share/icons/Awaita"
 
 -- Titlebar icon path

@@ -6,6 +6,7 @@ local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local xrdb = xresources.get_current_theme()
+local home = os.getenv("HOME")
 local gears = require("gears")
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
@@ -14,7 +15,7 @@ local helpers = require("helpers")
 -- Inherit default theme
 --
 local theme = dofile(themes_path .. "default/theme.lua")
-theme.wallpaper = "/etc/nixos/assets/wall.jpg"
+theme.wallpaper = home .. "/Desktop/Madmax.png"
 theme.icon_theme = "/usr/share/icons/Awaita"
 
 -- Titlebar icon path
