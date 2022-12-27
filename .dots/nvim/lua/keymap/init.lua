@@ -42,7 +42,7 @@ nmap({
   -- dadbodui
   -- { '<Leader>d', cmd('DBUIToggle'), opts(noremap, silent) },
   -- Telescope
-  { '<Leader>b', cmd('Telescope buffers'), opts(noremap, silent) },
+  { '<Leader>b', cmd('JABSOpen'), opts(noremap, silent) },
   { '<Leader>fa', cmd('Telescope live_grep'), opts(noremap, silent) },
   { '<Leader>fb', cmd('Telescope file_browser'), opts(noremap, silent) },
   { '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },

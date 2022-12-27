@@ -32,7 +32,6 @@ package({
   'glepnir/template.nvim',
   config = conf.template_nvim
 })
-
 package({
   'CRAG666/code_runner.nvim',
   config = conf.code_runner
@@ -44,4 +43,9 @@ package({
 package({
   'jghauser/papis.nvim',
   config = conf.papis
+  -- TODO: Reconfigure it
+})
+package({
+  'matbme/JABS.nvim',
+  config = conf.jabs
 })

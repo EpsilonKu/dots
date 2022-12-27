@@ -86,8 +86,8 @@ local options = {
 cmp.setup(options)
 local colors = {
   -- gray
-  gray0 = '#282c34',
-  gray1 = '#2b3339',
+  gray0 = '#221A02',
+  gray1 = '#C2A383',
   gray2 = '#323c41',
   gray3 = '#3a454a',
   gray4 = '#445055',
@@ -97,74 +97,74 @@ local colors = {
   gray8 = '#9da9a0',
 
   -- foreground
-  white = '#d3c6aa',
+  white = '#D9AE80',
 
   -- other colors
-  red    = '#e67e80',
-  orange = '#e69875',
-  yellow = '#ddbc7f',
-  green  = '#a7c080',
-  teal   = '#83c092',
-  blue   = '#7fbbb3',
-  purple = '#d699b6',
+  red    = '#DC3958',
+  orange = '#FF5813',
+  yellow = '#FF9500',
+  green  = '#819C3B',
+  teal   = '#7EB2B1',
+  blue   = '#4C96A8',
+  purple = '#A06469',
 
   -- misc
-  visual_bg = '#503946',
-  diff_del  = '#4e3e43',
-  diff_add  = '#404d44',
-  diff_mod  = '#394f5a',
+  -- visual_bg = '#503946',
+  -- diff_del  = '#4e3e43',
+  -- diff_add  = '#404d44',
+  -- diff_mod  = '#394f5a',
 }
 local set_hl = vim.api.nvim_set_hl
 local none = 'NONE'
 local hl = {
   -- {{{ pmenu
-  PmenuThumb = { bg = colors.gray5, fg = none },
-  PmenuSbar  = { bg = colors.gray4, fg = none },
-  PmenuSel   = { bg = colors.diff_add, fg = none, bold = true }, -- dark green selected item
-  Pmenu      = { bg = colors.gray3, fg = none },
+  -- PmenuThumb = { bg = colors.gray5, fg = none },
+  -- PmenuSbar  = { bg = colors.gray4, fg = none },
+  -- PmenuSel   = { bg = colors.diff_add, fg = none, bold = true }, -- dark green selected item
+  -- Pmenu      = { bg = colors.gray3, fg = none },
   -- }}}
 
   -- {{{ cmp general
-  CmpItemAbbrDeprecated = { fg = colors.gray8, bg = none, strikethrough = true }, -- strikethrough
-  CmpItemAbbrMatch      = { fg = colors.green, bg = none, bold = true }, -- bold
-  CmpItemAbbrMatchFuzzy = { fg = colors.green, bg = none, bold = true }, -- bold
-  CmpItemMenu           = { fg = colors.green, bg = none, italic = true }, -- italic
+  -- CmpItemAbbrDeprecated = { fg = colors.gray8, bg = none, strikethrough = true }, -- strikethrough
+  -- CmpItemAbbrMatch      = { fg = colors.green, bg = none, bold = true }, -- bold
+  -- CmpItemAbbrMatchFuzzy = { fg = colors.green, bg = none, bold = true }, -- bold
+  -- CmpItemMenu           = { fg = colors.green, bg = none, italic = true }, -- italic
   -- }}}
 
   -- {{{ kinds
-  CmpItemKindField   = { fg = colors.gray1, bg = colors.red, bold = true },
-  CmpItemKindEvent   = { fg = colors.gray1, bg = colors.red, bold = true },
-  CmpItemKindKeyword = { fg = colors.gray1, bg = colors.red, bold = true },
+  CmpItemKindField   = { fg = colors.gray0, bg = colors.red, bold = true },
+  CmpItemKindEvent   = { fg = colors.gray0, bg = colors.red, bold = true },
+  CmpItemKindKeyword = { fg = colors.gray0, bg = colors.red, bold = true },
 
-  CmpItemKindConstant = { fg = colors.gray1, bg = colors.orange, bold = true },
-  CmpItemKindOperator = { fg = colors.gray1, bg = colors.orange, bold = true },
-  CmpItemKindSnippet  = { fg = colors.gray1, bg = colors.orange, bold = true },
-  CmpItemKindUnit     = { fg = colors.gray1, bg = colors.orange, bold = true },
+  CmpItemKindConstant = { fg = colors.gray0, bg = colors.orange, bold = true },
+  CmpItemKindOperator = { fg = colors.gray0, bg = colors.orange, bold = true },
+  CmpItemKindSnippet  = { fg = colors.gray0, bg = colors.orange, bold = true },
+  CmpItemKindUnit     = { fg = colors.gray0, bg = colors.orange, bold = true },
 
-  CmpItemKindEnum       = { fg = colors.gray1, bg = colors.yellow, bold = true },
-  CmpItemKindEnumMember = { fg = colors.gray1, bg = colors.yellow, bold = true },
-  CmpItemKindReference  = { fg = colors.gray1, bg = colors.yellow, bold = true },
+  CmpItemKindEnum       = { fg = colors.gray0, bg = colors.yellow, bold = true },
+  CmpItemKindEnumMember = { fg = colors.gray0, bg = colors.yellow, bold = true },
+  CmpItemKindReference  = { fg = colors.gray0, bg = colors.yellow, bold = true },
 
-  CmpItemKindConstructor = { fg = colors.gray1, bg = colors.green, bold = true },
-  CmpItemKindFunction    = { fg = colors.gray1, bg = colors.green, bold = true },
-  CmpItemKindMethod      = { fg = colors.gray1, bg = colors.green, bold = true },
-  CmpItemKindProperty    = { fg = colors.gray1, bg = colors.green, bold = true },
+  CmpItemKindConstructor = { fg = colors.gray0, bg = colors.green, bold = true },
+  CmpItemKindFunction    = { fg = colors.gray0, bg = colors.green, bold = true },
+  CmpItemKindMethod      = { fg = colors.gray0, bg = colors.green, bold = true },
+  CmpItemKindProperty    = { fg = colors.gray0, bg = colors.green, bold = true },
 
-  CmpItemKindColor         = { fg = colors.gray1, bg = colors.teal, bold = true },
-  CmpItemKindInterface     = { fg = colors.gray1, bg = colors.teal, bold = true },
-  CmpItemKindTypeParameter = { fg = colors.gray1, bg = colors.teal, bold = true },
+  CmpItemKindColor         = { fg = colors.gray0, bg = colors.teal, bold = true },
+  CmpItemKindInterface     = { fg = colors.gray0, bg = colors.teal, bold = true },
+  CmpItemKindTypeParameter = { fg = colors.gray0, bg = colors.teal, bold = true },
 
-  CmpItemKindVariable = { fg = colors.gray1, bg = colors.blue, bold = true },
+  CmpItemKindVariable = { fg = colors.gray0, bg = colors.blue, bold = true },
 
-  CmpItemKindClass  = { fg = colors.gray1, bg = colors.purple, bold = true },
-  CmpItemKindStruct = { fg = colors.gray1, bg = colors.purple, bold = true },
-  CmpItemKindValue  = { fg = colors.gray1, bg = colors.purple, bold = true },
+  CmpItemKindClass  = { fg = colors.gray0, bg = colors.purple, bold = true },
+  CmpItemKindStruct = { fg = colors.gray0, bg = colors.purple, bold = true },
+  CmpItemKindValue  = { fg = colors.gray0, bg = colors.purple, bold = true },
 
-  CmpItemKindFile   = { fg = colors.gray1, bg = colors.white, bold = true },
-  CmpItemKindFolder = { fg = colors.gray1, bg = colors.white, bold = true },
-  CmpItemKindModule = { fg = colors.gray1, bg = colors.white, bold = true },
+  CmpItemKindFile   = { fg = colors.gray0, bg = colors.white, bold = true },
+  CmpItemKindFolder = { fg = colors.gray0, bg = colors.white, bold = true },
+  CmpItemKindModule = { fg = colors.gray0, bg = colors.white, bold = true },
 
-  CmpItemKindText = { fg = colors.gray1, bg = colors.gray8, bold = true },
+  CmpItemKindText = { fg = colors.gray0, bg = colors.gray8, bold = true },
   -- }}}
 }
 
