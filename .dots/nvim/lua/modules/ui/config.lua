@@ -57,11 +57,6 @@ function config.kimbox()
 end
 
 function config.neo_tree()
-  if not packer_plugins['plenary.nvim'].loaded then
-    vim.cmd([[packadd plenary.nvim]])
-    vim.cmd([[packadd nvim-web-devicons]]) -- not strictly required, but recommended
-    vim.cmd([[packadd nui.nvim]])
-  end
   require("neo-tree").setup({})
 end
 
@@ -282,9 +277,6 @@ function config.windline()
 end
 
 function config.gitsigns()
-  if not packer_plugins['plenary.nvim'].loaded then
-    vim.cmd([[packadd plenary.nvim]])
-  end
   require('gitsigns').setup({
     signs = {
       add = { hl = 'GitGutterAdd', text = '▋' },

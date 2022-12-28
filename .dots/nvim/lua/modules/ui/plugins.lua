@@ -46,7 +46,7 @@ package({
   'nvim-neo-tree/neo-tree.nvim',
   cmd = 'Neotree',
   config = conf.neo_tree,
-  requires = {
+  dependencies = {
     "nvim-lua/plenary.nvim",
     "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
@@ -57,7 +57,7 @@ package({
   'lewis6991/gitsigns.nvim',
   event = { 'BufRead', 'BufNewFile' },
   config = conf.gitsigns,
-  requires = { 'nvim-lua/plenary.nvim', opt = true },
+  dependencies = { 'nvim-lua/plenary.nvim' },
 })
 
 -- package({

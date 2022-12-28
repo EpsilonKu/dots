@@ -1,10 +1,6 @@
 local config = {}
 
 function config.telescope()
-  if not packer_plugins['plenary.nvim'].loaded then
-    vim.cmd([[packadd plenary.nvim]])
-    vim.cmd([[packadd popup.nvim]])
-  end
   require('telescope').setup({
     defaults = {
       prompt_prefix = '🔭 ',

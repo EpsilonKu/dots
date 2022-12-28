@@ -5,9 +5,9 @@ package({
   'nvim-telescope/telescope.nvim',
   cmd = 'Telescope',
   config = conf.telescope,
-  requires = {
-    { 'nvim-lua/popup.nvim', opt = true },
-    { 'nvim-lua/plenary.nvim', opt = true },
+  dependencies = {
+    { 'nvim-lua/popup.nvim' },
+    { 'nvim-lua/plenary.nvim' },
   },
 })
 
@@ -15,10 +15,9 @@ package({
   'nvim-treesitter/nvim-treesitter',
   event = 'BufRead',
   run = ':TSUpdate',
-  after = 'telescope.nvim',
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    'windwp/nvim-ts-autotag'
+  },
   config = conf.nvim_treesitter,
 })
-
-package({ 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' })
-
-package({ 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' })

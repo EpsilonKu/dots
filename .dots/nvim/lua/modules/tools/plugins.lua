@@ -5,7 +5,7 @@ package({
   'kristijanhusak/vim-dadbod-ui',
   cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
   config = conf.vim_dadbod_ui,
-  requires = { { 'tpope/vim-dadbod', opt = true } },
+  dependencies = { { 'tpope/vim-dadbod', opt = true } },
 })
 
 package({
@@ -28,17 +28,18 @@ package({
   'numToStr/Navigator.nvim',
   config = conf.navigator
 })
-package({
-  'glepnir/template.nvim',
-  config = conf.template_nvim
-})
+-- package({
+--   'glepnir/template.nvim',
+--   config = conf.template_nvim
+-- })
 package({
   'CRAG666/code_runner.nvim',
   config = conf.code_runner
 })
 package({
   'xeluxee/competitest.nvim',
-  config = conf.competitest
+  config = conf.competitest,
+  lazy=true
 })
 package({
   'jghauser/papis.nvim',

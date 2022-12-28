@@ -1,6 +1,3 @@
-if not packer_plugins['nvim-jdtls'].loaded then
-  vim.cmd([[packadd nvim-jdtls]])
-end
 vim.cmd [[
   autocmd BufWritePre *.java lua vim.lsp.buf.format({ async = false })
 ]]
