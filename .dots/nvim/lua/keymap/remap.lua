@@ -14,10 +14,13 @@ nmap({
   -- remove trailing white space
   { '<Leader>t', cmd('TrimTrailingWhitespace'), opts(noremap) },
   -- window jump
-  -- { '<C-h>', '<C-w>h', opts(noremap) },
-  -- { '<C-l>', '<C-w>l', opts(noremap) },
   { '<C-k>', ':bn<CR>', opts(noremap) },
   { '<C-j>', ':bp<CR>', opts(noremap) },
+
+  { '<A-h>', '<C-w>h' },
+  { '<A-l>', '<C-w>l' },
+  { '<A-j>', '<C-w>j' },
+  { '<A-k>', '<C-w>k' },
   -- resize window
   { '<A-[>', cmd('vertical resize -5'), opts(noremap, silent) },
   { '<A-]>', cmd('vertical resize +5'), opts(noremap, silent) },
@@ -42,12 +45,6 @@ cmap({
   { '<C-h>', '<BS>', opts(noremap) },
 })
 
--- KeybindingsCompetiTestAdd
-vim.keymap.set('n', "<A-h>", '<CMD>NavigatorLeft<CR>')
-vim.keymap.set('n', "<A-l>", '<CMD>NavigatorRight<CR>')
-vim.keymap.set('n', "<A-k>", '<CMD>NavigatorUp<CR>')
-vim.keymap.set('n', "<A-j>", '<CMD>NavigatorDown<CR>')
-vim.keymap.set('n', "<A-p>", '<CMD>NavigatorPrevious<CR>')
 wk.register({
   d = {
     name = "Debug", -- optional group name
