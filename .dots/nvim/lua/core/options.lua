@@ -77,3 +77,4 @@ opt.colorcolumn = '100'
 opt.foldenable = true
 opt.signcolumn = 'yes'
 opt.spelloptions = 'camel'
+vim.o.pumheight = 7
