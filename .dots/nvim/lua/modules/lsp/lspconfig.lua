@@ -19,13 +19,13 @@ for type, icon in pairs(signs) do
 end
 
 vim.diagnostic.config({
-  signs = true,
+  signs = false,
   update_in_insert = true,
-  underline = true,
+  underline = false,
   severity_sort = true,
   virtual_text = {
-    prefix = '🔥',
-    source = true,
+    -- prefix = '🔥',
+    source = false,
   },
 })
 
@@ -74,7 +74,7 @@ lspconfig.sumneko_lua.setup({
     Lua = {
       diagnostics = {
         enable = true,
-        globals = { 'vim', 'packer_plugins' },
+        globals = { 'vim' },
       },
       runtime = { version = 'LuaJIT' },
       workspace = {

@@ -26,7 +26,7 @@ end
 
 function config.lspkind()
   require('lspkind').init({
-preset = 'codicons',
+    preset = 'codicons',
   })
 end
 
@@ -134,7 +134,7 @@ function config.dap_ui()
 end
 
 function config.lsp_lines()
-  require("lsp_lines").setup()
+  --  require("lsp_lines").setup()
 end
 
 function config.trouble()
