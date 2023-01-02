@@ -54,7 +54,7 @@ end
 function config.auto_session()
   require("auto-session").setup {
     log_level = 'error',
-    auto_session_enabled = true,
+    auto_session_enabled = false,
     auto_save_enabled = true,
     pre_save_cmds = { "lua require('dapui').close()" }
   }

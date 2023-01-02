@@ -3,7 +3,7 @@ local config = {}
 function config.kimbox()
   require("kimbox").setup({
     -- Main options --
-    style = "warmer", -- choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+    style = "ocean", -- choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
     -- medium: #231A0C
     -- ocean: #221A02
     -- medium: #231A0C
@@ -56,15 +56,16 @@ function config.kimbox()
   require("kimbox").load()
 end
 
-function config.neo_tree()
-  require("neo-tree").setup({})
+function config.mellow()
+  vim.g.mellow_italic_comments = true
+  vim.g.mellow_italic_keywords = true
+  vim.g.mellow_italic_functions = true
+  vim.g.mellow_bold_functions = true
+  vim.cmd [[colorscheme mellow]]
 end
 
-function config.airline()
-  vim.cmd [[
-
-let g:airline#extensions#tabline#enabled = 1
-  ]]
+function config.neo_tree()
+  require("neo-tree").setup({})
 end
 
 function config.windline()
@@ -355,7 +356,33 @@ function config.indent_blankline()
 end
 
 function config.alpha()
-  require 'alpha'.setup(require 'alpha.themes.startify'.config)
+  local alpha = require 'alpha'
+  local dashboard = require 'alpha.themes.dashboard'
+  dashboard.section.header.val = {
+
+    '   ⣴⣶⣤⡤⠦⣤⣀⣤⠆     ⣈⣭⣿⣶⣿⣦⣼⣆          ',
+    '    ⠉⠻⢿⣿⠿⣿⣿⣶⣦⠤⠄⡠⢾⣿⣿⡿⠋⠉⠉⠻⣿⣿⡛⣦       ',
+    '          ⠈⢿⣿⣟⠦ ⣾⣿⣿⣷    ⠻⠿⢿⣿⣧⣄     ',
+    '           ⣸⣿⣿⢧ ⢻⠻⣿⣿⣷⣄⣀⠄⠢⣀⡀⠈⠙⠿⠄    ',
+    '          ⢠⣿⣿⣿⠈    ⣻⣿⣿⣿⣿⣿⣿⣿⣛⣳⣤⣀⣀   ',
+    '   ⢠⣧⣶⣥⡤⢄ ⣸⣿⣿⠘  ⢀⣴⣿⣿⡿⠛⣿⣿⣧⠈⢿⠿⠟⠛⠻⠿⠄  ',
+    '  ⣰⣿⣿⠛⠻⣿⣿⡦⢹⣿⣷   ⢊⣿⣿⡏  ⢸⣿⣿⡇ ⢀⣠⣄⣾⠄   ',
+    ' ⣠⣿⠿⠛ ⢀⣿⣿⣷⠘⢿⣿⣦⡀ ⢸⢿⣿⣿⣄ ⣸⣿⣿⡇⣪⣿⡿⠿⣿⣷⡄  ',
+    ' ⠙⠃   ⣼⣿⡟  ⠈⠻⣿⣿⣦⣌⡇⠻⣿⣿⣷⣿⣿⣿ ⣿⣿⡇ ⠛⠻⢷⣄ ',
+    '      ⢻⣿⣿⣄   ⠈⠻⣿⣿⣿⣷⣿⣿⣿⣿⣿⡟ ⠫⢿⣿⡆     ',
+    '       ⠻⣿⣿⣿⣿⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣤⣾⡿⠃     ', -- slight modifications here
+  }
+  dashboard.section.buttons.val = {
+    dashboard.button("SPC s l", "  Restore session", ":RestoreSession<CR>"),
+    dashboard.button("q", "  Quit NVIM", ":qa<CR>"),
+  }
+  local handle = io.popen('fortune')
+  local fortune = handle:read("*a")
+  handle:close()
+  dashboard.section.footer.val = fortune
+  dashboard.config.opts.noautocmd = true
+  vim.cmd [[autocmd User AlphaReady echo 'ready']]
+  alpha.setup(dashboard.config)
 end
 
 function config.bufferline()
@@ -636,7 +663,105 @@ end
 
 function config.carbon()
   require('carbon').setup({
-    setting = 'value',
+    auto_open = false,
+    indicators = { collapse = '▾', expand = '▸' },
+    actions = {
+      up = '[',
+      down = ']',
+      quit = 'q',
+      edit = '<cr>',
+      move = 'm',
+      reset = 'u',
+      split = { '<c-x>', '<c-s>' },
+      vsplit = '<c-v>',
+      create = { 'c', '%' },
+      delete = 'd',
+      close_parent = '-',
+      toggle_recursive = '!',
+    },
+  })
+end
+
+function config.lir()
+  local actions = require 'lir.actions'
+  local mark_actions = require 'lir.mark.actions'
+  local clipboard_actions = require 'lir.clipboard.actions'
+
+  require 'lir'.setup {
+    show_hidden_files = false,
+    ignore = {}, -- { ".DS_Store" "node_modules" } etc.
+    devicons_enable = true,
+    mappings = {
+      ['l']     = actions.edit,
+      ['<C-s>'] = actions.split,
+      ['<C-v>'] = actions.vsplit,
+      ['<C-t>'] = actions.tabedit,
+
+      ['h'] = actions.up,
+      ['q'] = actions.quit,
+
+      ['K'] = actions.mkdir,
+      ['N'] = actions.newfile,
+      ['R'] = actions.rename,
+      ['@'] = actions.cd,
+      ['Y'] = actions.yank_path,
+      ['.'] = actions.toggle_show_hidden,
+      ['D'] = actions.delete,
+
+      ['J'] = function()
+        mark_actions.toggle_mark()
+        vim.cmd('normal! j')
+      end,
+      ['C'] = clipboard_actions.copy,
+      ['X'] = clipboard_actions.cut,
+      ['P'] = clipboard_actions.paste,
+    },
+    float = {
+      winblend = 0,
+      curdir_window = {
+        enable = false,
+        highlight_dirname = false
+      },
+
+      -- -- You can define a function that returns a table to be passed as the third
+      -- -- argument of nvim_open_win().
+      -- win_opts = function()
+      --   local width = math.floor(vim.o.columns * 0.8)
+      --   local height = math.floor(vim.o.lines * 0.8)
+      --   return {
+      --     border = {
+      --       "+", "─", "+", "│", "+", "─", "+", "│",
+      --     },
+      --     width = width,
+      --     height = height,
+      --     row = 1,
+      --     col = math.floor((vim.o.columns - width) / 2),
+      --   }
+      -- end,
+    },
+    hide_cursor = true,
+    on_init = function()
+      -- use visual mode
+      vim.api.nvim_buf_set_keymap(
+        0,
+        "x",
+        "J",
+        ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
+        { noremap = true, silent = true }
+      )
+
+      -- echo cwd
+      vim.api.nvim_echo({ { vim.fn.expand("%:p"), "Normal" } }, false, {})
+    end,
+  }
+
+  -- custom folder icon
+  require 'nvim-web-devicons'.set_icon({
+    lir_folder_icon = {
+      icon = "",
+      color = "#7ebae4",
+      name = "LirFolderNode"
+    }
   })
 end
 
