@@ -10,23 +10,23 @@ package({
 
 package({
   'folke/which-key.nvim',
-  config = conf.which_key
+  config = conf.which_key,
+  event = "VeryLazy"
 })
 package({
   'rmagatti/auto-session',
-  config = conf.auto_session
+  config = conf.auto_session,
+  event = "VeryLazy"
 })
 package({
   'numToStr/Comment.nvim',
-  config = conf.comment
+  config = conf.comment,
+  init = true
 })
 package({
   'gbprod/cutlass.nvim',
-  config = conf.cutlass
-})
-package({
-  'numToStr/Navigator.nvim',
-  config = conf.navigator
+  config = conf.cutlass,
+  init = true
 })
 -- package({
 --   'glepnir/template.nvim',
@@ -34,12 +34,13 @@ package({
 -- })
 package({
   'CRAG666/code_runner.nvim',
-  config = conf.code_runner
+  config = conf.code_runner,
+  ft = 'cpp'
 })
 package({
   'xeluxee/competitest.nvim',
   config = conf.competitest,
-  lazy=true
+  ft = 'cpp'
 })
 package({
   'jghauser/papis.nvim',
@@ -48,5 +49,6 @@ package({
 })
 package({
   'matbme/JABS.nvim',
-  config = conf.jabs
+  config = conf.jabs,
+  cmd = 'JABSOpen'
 })
